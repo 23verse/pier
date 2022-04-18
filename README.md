@@ -1,18 +1,54 @@
-<a href="./README.md"><IMG src="./inst/XGR.logo.png" height="100px" id="logo"></a>
+#### *The source codes behind the PiER*
 
-#### *XGR: eXploring Genomic Relations at the gene and SNP level through enrichment analysis, similarity analysis and network analysis*
+## @ Introduction
+> The [PiER](http://www.genetictargets.com) is web-based facilities that support ab initio and real-time genetic target prioritisation through integrative use of human disease genetics, functional genomics and protein interactions. By design, the PiER features two facilities: elementary and combinatory. The elementary facility is designed to perform specific tasks, including three online tools: eV2CG, utilising functional genomics to link disease-associated variants (particularly at the non-coding genome) to core genes likely responsible for genetic associations; eCG2PG, using knowledge of protein interactions to ‘network’ core genes and additional peripheral genes, producing a ranked list of core and peripheral genes; and eCrosstalk, exploiting the information of pathway-derived interactions to identify highly-ranked genes mediating the crosstalk between molecular pathways. Each of elementary tasks giving results is sequentially piped to the next one. By chaining together elementary tasks, the combinatory facility automates genetics-led and network-based integrative prioritisation for genetic targets at the gene level (cTGene) and at the crosstalk level (cTCrosstalk). 
 
-## @ Description
-> The central goal of the XGR is to provide a data interpretation system. It is designed to make a user-defined gene or SNP list more interpretable by comprehensively utilising ontology and network information to reveal relationships and enhance opportunities for biological discovery. XGR is unique in supporting a broad range of ontologies (including knowledge of biological and molecular functions, pathways, diseases and phenotypes - in both human and mouse) and different types of networks (including functional, physical and pathway interactions). There are two core functionalities of the XGR. The first is basic infrastructures for easy access to built-in ontologies and networks. The second is extensible functions, now including 1) enrichment analysis using either built-in or custom ontologies, 2) similarity analysis for calculating semantic similarity between genes (or SNPs) based on their ontology annotation profiles, and 3) network analysis for identification of gene subnetworks given a query list of (significant) genes or SNPs. Together with its web app, XGR aims to provide a user-friendly tool for exploring genomic relations at the gene and SNP level.
+## @ Development
+> Developed using a next-generation Perl web framework [Mojolicious](https://www.mojolicious.org) and [Bootstrap](https://getbootstrap.com), supporting the mobile-first and responsive webserver in all major platform browsers.
 
 ## @ Installation
-> Instructions can be found at [INSTALLATION](./inst/INSTALLATION.md).
 
-## @ Manual
-> Manual can be found at [Reference Manual](./inst/HTML.md) and [User Manual](https://rawgit.com/hfang-bristol/XGR/master/vignettes/XGR_vignettes.html).
+### 1. Install Mojolicious and other perl modules
 
-## @ Citation
-> How to cite can be found at [CITATION](./inst/CITATIONS.md).
+Assume you have a `ROOT (sudo)` privilege:
+>
+```ruby
+curl -L cpanmin.us | perl - Mojolicious
+perl -e "use Mojolicious::Plugin::PODRenderer"
+perl -MCPAN -e "install Mojolicious::Plugin::PODRenderer"
+perl -MCPAN -e "install DBI"
+perl -MCPAN -e "install Mojo::DOM"
+perl -MCPAN -e "install Mojo::Base"
+perl -MCPAN -e "install LWP::Simple"
+perl -MCPAN -e "install JSON::Parse"
+perl -MCPAN -e "install local::lib"
+perl -MCPAN -Mlocal::lib -e 'install JSON::Parse'
+```
 
-## @ Web App
-> Web-based version of this package can be found at [Web App](http://galahad.well.ox.ac.uk/XGR). 
+### 2. Install R and bioconductor packages
+Assume you have a `ROOT (sudo)` privilege:
+>
+```ruby
+sudo su
+# here enter your password
+wget http://www.stats.bris.ac.uk/R/src/base/R-4/R-4.1.3.tar.gz
+tar xvfz R-4.1.3.tar.gz
+cd ~/R-4.1.3
+./configure
+make
+make check
+make install
+R # start R
+
+install.packages("BiocManager")
+BiocManager::install()
+BiocManager::install('Pi', dependencies=T)
+library(Pi)
+```
+
+## @ Deployment
+> morbo -l 'http://*:80/' script/pier_app
+
+## @ Contact
+> Please drop us [emails](mailto:fh12355@rjh.com.cn) for the bug reporting and queries.
+
