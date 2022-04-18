@@ -13,6 +13,8 @@
 Assume you have a `ROOT (sudo)` privilege:
 >
 ```ruby
+sudo su
+# here enter your password
 curl -L cpanmin.us | perl - Mojolicious
 perl -e "use Mojolicious::Plugin::PODRenderer"
 perl -MCPAN -e "install Mojolicious::Plugin::PODRenderer"

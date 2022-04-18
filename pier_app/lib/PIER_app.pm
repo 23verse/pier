@@ -52,35 +52,6 @@ sub startup {
   	### eCrosstalk
   	$r->get('/e/Crosstalk')->to(template=>'eCrosstalk', format=>'html', handler=>'ep', controller=>'action', action=>'PiER_eCrosstalk', post_flag=>0);
   	$r->post('/e/Crosstalk')->to(template=>'eCrosstalk', format=>'html', handler=>'ep', controller=>'action', action=>'PiER_eCrosstalk', post_flag=>1);
-  	
-  	
-  	## A2
-  	### Genes
-  	$r->get('/A2/genes')->to(template=>'A2Genes', format=>'html', handler=>'ep', controller=>'action', action=>'A2_genes', post_flag=>0);
-  	$r->post('/A2/genes')->to(template=>'A2Genes', format=>'html', handler=>'ep', controller=>'action', action=>'A2_genes', post_flag=>1);
-  	### Regions
-  	$r->get('/A2/regions')->to(template=>'A2Regions', format=>'html', handler=>'ep', controller=>'action', action=>'A2_regions', post_flag=>0);
-  	$r->post('/A2/regions')->to(template=>'A2Regions', format=>'html', handler=>'ep', controller=>'action', action=>'A2_regions', post_flag=>1);
-  	### Crosstalk
-  	$r->get('/A2/crosstalk')->to(template=>'A2Crosstalk', format=>'html', handler=>'ep', controller=>'action', action=>'A2_crosstalk', post_flag=>0);
-  	$r->post('/A2/crosstalk')->to(template=>'A2Crosstalk', format=>'html', handler=>'ep', controller=>'action', action=>'A2_crosstalk', post_flag=>1);
-  	
-	## Path
-  	$r -> get('/A2/explorer') -> to(template=>'A2Explorer', format=>'html', handler=>'ep', controller=>'action', action=>'A2_explorer', post_flag=>0);
-  	$r -> post('/A2/explorer') -> to(template=>'A2Explorer', format=>'html', handler=>'ep', controller=>'action', action=>'A2_explorer', post_flag=>1);
-  	$r -> get('/A2/mapper') -> to(template=>'A2Mapper', format=>'html', handler=>'ep', controller=>'action', action=>'A2_mapper', post_flag=>0);
-  	$r -> post('/A2/mapper') -> to(template=>'A2Mapper', format=>'html', handler=>'ep', controller=>'action', action=>'A2_mapper', post_flag=>1);
-  	$r -> get('/A2/viewer') -> to(template=>'A2Viewer', format=>'html', handler=>'ep', controller=>'action', action=>'A2_viewer', post_flag=>0);
-  	$r -> post('/A2/viewer') -> to(template=>'A2Viewer', format=>'html', handler=>'ep', controller=>'action', action=>'A2_viewer', post_flag=>1);
-	### Path outgoing
-  	$r -> get('/A2/explorer/#hsa') -> to(template=>'A2Explorer_hsa', format=>'html', handler=>'ep', controller=>'action', action=>'A2_explorer_hsa');
-  	$r -> get('/A2/explorer/#hsa/#passflag') -> to(template=>'A2Explorer_hsa', format=>'html', handler=>'ep', controller=>'action', action=>'A2_explorer_hsa');
-  	
-  	## Booklet
-  	$r->get('/A2/booklet')->to(template=>'A2Booklet', format=>'html', handler=>'ep', controller=>'action', action=>'index');
-
-  	## Access
-  	$r->get('/A2/access')->to(template=>'A2Access', format=>'html', handler=>'ep', controller=>'action', action=>'index');
 
 }
 

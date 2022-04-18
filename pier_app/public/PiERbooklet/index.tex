@@ -104,7 +104,7 @@ We and others are leading the field of target discovery through developing appro
 \textbf{Design}
 \end{quote}
 
-Building on our well-established algorithm (see \href{https://www.ncbi.nlm.nih.gov/pubmed/31253980}{Nature Genetics 2019}), here I introduce web-based servers/facilities called \texttt{PiER}. The PiER is free and open to all users and there is no login requirement, allowing tge users to perform real-time target prioritisation harnessing human disease genetics, functional genomics, and protein interactions.
+Building on our well-established algorithm (see \href{https://www.ncbi.nlm.nih.gov/pubmed/31253980}{Nature Genetics 2019}), here I introduce web-based servers/facilities called \texttt{PiER}. The PiER is free and open to all users and there is no login requirement, allowing the users to perform real-time target prioritisation harnessing human disease genetics, functional genomics, and protein interactions.
 
 By analogy to the piano \href{https://www.piano-keyboard-guide.com/grand-staff.html}{stave}, the PiER consists of five horizontal lines, with three lines representing the elementary facility (\texttt{eV2CG}, \texttt{eCG2PG} and \texttt{eCrosstalk}), each doing specific tasks on their own, and the rest two lines signifying the combinatory facility (\texttt{cTGene} and \texttt{cTCrosstalk}), making the prioritisaton process transparent to follow and easy to use.
 
@@ -142,15 +142,17 @@ The elementary facility supports three specific tasks, including: (i) \texttt{eV
 
 \caption{\label{tab:unnamed-chunk-3}A summary of the PiER website browser compatibility.}
 \centering
-\begin{tabular}[t]{l|l|l|l|l}
+\begin{tabular}[t]{l|c|c|c}
 \hline
-Operating System & Safari & Microsoft Edge & Google Chrome & Firefox\\
+  & MacOS (Big Sur) & Windows (10) & Linux (Ubuntu)\\
 \hline
-MacOS (Big Sur) & 14.1.2 & N/A & 96.0.4664.110 & 95.0.2\\
+Safari & 14.1.2 & N/A & N/A\\
 \hline
-Windows (10) & N/A & 85.0.564.67 & 90.0.4430.93 & 95.0.2\\
+Microsoft Edge & N/A & 85.0.564.67 & N/A\\
 \hline
-Linux (Ubuntu) & N/A & N/A & 96.0.4664.110 & 95.0.2\\
+Google Chrome & 96.0.4664.110 & 90.0.4430.93 & 96.0.4664.110\\
+\hline
+Firefox & 95.0.2 & 95.0.2 & 95.0.2\\
 \hline
 \end{tabular}
 \end{table}
@@ -162,19 +164,19 @@ Linux (Ubuntu) & N/A & N/A & 96.0.4664.110 & 95.0.2\\
 
 \caption{\label{tab:unnamed-chunk-4}A summary of the estimated runtime.}
 \centering
-\begin{tabular}[t]{l|l|l}
+\begin{tabular}[t]{c|c|c}
 \hline
-Facilities & Tasks & Runtime\\
+Facilities & Tools & Runtime (Server + Client)\\
 \hline
-Elementary & eV2CG & 66 seconds\\
+Elementary & eV2CG & (67 + 82) seconds\\
 \hline
-Elementary & eCG2PG & 14 seconds\\
+Elementary & eCG2PG & (15 + 70) seconds\\
 \hline
-Elementary & eCrosstalk & 9 seconds\\
+Elementary & eCrosstalk & (53 + 71) seconds\\
 \hline
-Combinatory & cTGene & 88 seconds\\
+Combinatory & cTGene & (90 + 91) seconds\\
 \hline
-Combinatory & cTCrosstalk & 100 seconds\\
+Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \hline
 \end{tabular}
 \end{table}
