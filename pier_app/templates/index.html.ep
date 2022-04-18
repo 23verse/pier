@@ -1,0 +1,129 @@
+% layout 'default', tab => 'home';
+% title 'PIER - Home';
+
+% content_for css => begin
+	<style>
+		.coin-container .coin1 {
+			-webkit-transition: 1s;
+			-moz-transition: 1s;
+			-o-transition: 1s;
+			transition: 1s;
+		}
+		.coin-container:hover .coin1 {
+			-webkit-transform: rotateY(360deg);
+			-moz-transform: rotateX(360deg) rotateY(360deg);
+			-o-transform: rotateX(360deg) rotateY(360deg);
+			transform: rotateY(360deg);
+		}
+	</style>
+	
+% end
+
+
+% content_for scripts => begin
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.truncated').hide()                    // Hide the text initially
+				.after('<span class="glyphicon glyphicon-plus-sign"></span>') // Create toggle button
+				.next().on('click', function(){          // Attach behavior
+					$(this).toggleClass('glyphicon-minus-sign')   // Swap the icon
+					.prev().toggle();                    // Hide/show the text
+				});
+			
+		});
+	</script>
+% end
+
+<div class="jumbotron1">
+
+    <!-- Projects Row -->
+    <div class="row">
+        <div class="col-md-12 img-portfolio text-center">
+            <img src="/app/img/PIER.logo.png" height="130px">
+        </div>
+    	
+    	<br>
+    	
+    	<div class="text-center">
+        	<h1 style="color:#0e6ba0; font-weight:280px; font-size:22px; margin:0;">ENABLING <i>AB INITIO</i> & <i>REAL-TIME</i> GENETIC TARGET PRIORITISATION <br> <span class="my-fontfamily">(genetics-led and network-based)</span></h1>
+        </div>
+    </div>
+    <!-- /.row -->
+
+</div>
+
+<hr>
+
+<div class="container">
+
+    <!-- Content Row -->
+    <div class="row">
+    	<div class="col-md-4 img-portfolio text-center">
+        	<div class="panel panel-default">
+            	<div class="panel-heading">
+                	<h4><a href="/e/V2CG"><i class="fa fa-gear fa-lg"></i>&nbsp;eV2CG</a></h4>
+                </div>
+                <div class="panel-body">
+					<p class="help-block" style="font-size:16px; margin:0;">Linking variants to core genes</p>
+                </div>
+            </div>
+        </div>
+    	<div class="col-md-4 img-portfolio text-center">
+        	<div class="panel panel-default">
+            	<div class="panel-heading">
+                	<h4><a href="/e/CG2PG"><i class="fa fa-gear fa-lg"></i>&nbsp;eCG2PG</a></h4>
+                </div>
+                <div class="panel-body">
+                	<!-- width=280 height=250 margin=10 -->
+                	<p class="help-block" style="font-size:16px; margin:0;">Networking core and peripheral genes</p>
+                </div>
+            </div>
+        </div>
+    	<div class="col-md-4 img-portfolio text-center">
+        	<div class="panel panel-default">
+            	<div class="panel-heading">
+                	<h4><a href="/e/Crosstalk"><i class="fa fa-gear fa-lg"></i>&nbsp;eCrosstalk </a></h4>
+                </div>
+                <div class="panel-body">
+                	<p class="help-block" style="font-size:16px; margin:0;">Identifying pathway crosstalk</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+    	<div class="col-md-4 img-portfolio text-center">
+        	<div class="panel panel-default">
+            	<div class="panel-heading">
+                	<h4><a href="/c/TGene"><i class="fa fa-gears fa-lg"></i>&nbsp;cTGene</a></h4>
+                </div>
+                <div class="panel-body">
+					<p class="help-block" style="font-size:16px; margin:0;">Prioritising targets at the gene level&nbsp;</p>
+                </div>
+            </div>
+        </div>
+    	<div class="col-md-4 img-portfolio text-center">
+        	<div class="panel panel-default">
+            	<div class="panel-heading">
+                	<h4><a href="/c/TCrosstalk"><i class="fa fa-gears fa-lg"></i>&nbsp;cTCrosstalk</a></h4>
+                </div>
+                <div class="panel-body">
+                	<!-- width=280 height=250 margin=10 -->
+                	<p class="help-block" style="font-size:16px; margin:0;">Prioritising targets at the crosstalk level</p>
+                </div>
+            </div>
+        </div>
+    	<div class="col-md-4 img-portfolio text-center">
+        	<div class="panel panel-default">
+            	<div class="panel-heading">
+                	<h4><a href="javascript:newWin('/PiERbooklet/index.html', 'PiERbooklet', '909', '1169')"><i class="fa fa-book"></i>&nbsp;BOOKLET </a></h4>
+                </div>
+                <div class="panel-body">
+                	<p class="help-block" style="font-size:16px; margin:0;">Describing instructions on how to use</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

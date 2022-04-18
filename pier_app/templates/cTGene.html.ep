@@ -1,0 +1,664 @@
+% layout 'default', tab => '/c/TGene';
+% title 'PiER - Prioritising targets at the gene level';
+
+% content_for css => begin
+	
+	<link type="text/css" href="https://cdn.datatables.net/buttons/1.1.0/css/buttons.dataTables.min.css" rel="stylesheet">
+	<style>
+		td.highlight {
+			font-weight: bold;
+			color: blue;
+		}
+	</style>
+% end
+% content_for scripts => begin
+	
+	<!-- Flash export buttons -->
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.0/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" src="//cdn.datatables.net/buttons/1.1.0/js/buttons.flash.min.js"></script>
+	
+	<!-- Visibility toggle buttons -->
+	<script type="text/javascript" src="//cdn.datatables.net/buttons/1.1.0/js/buttons.colVis.min.js"></script>
+	
+	<script type="text/javascript">
+	
+		$(document).ready(function(){
+			
+			// For results container
+			var jfile = '<%= $ajax_txt_file %>';
+			var post_flag = '<%= $post_flag %>';
+			if(jfile != ''){
+				// show results
+				$("#results-container").addClass("in");
+				// hide form
+				$("#form-container").removeClass("in");
+			}else{
+				// error only occurs after the submit
+				if(post_flag==1){
+					// show error
+					$("#error-container").addClass("in");
+				}
+			}
+
+		});
+	</script>
+	
+% end
+
+<%
+my $info='
+<h5>Input</h5>
+<ul>
+<li>(<b>Step 1</b>) a list of user-defined SNPs (1st column for dbSNP rsIDs, 2nd for significance info). <a href="/app/examples/data_inflam.xlsx" download="/app/examples/data_inflam.xlsx" target="/app/examples/data_inflam.xlsx"><i class="fa fa-cloud-download fa" aria-hidden="true"></i>&nbspExample Input</a>, shared genetic variants identified from cross-disease genome-wide association studies in inflammatory disorders (Nature Genetics 2016; PMID26974007).
+</ul>
+
+<h5>Mechanism</h5>
+<ul>
+<li>(<b>Step 2</b>) includes SNPs in Linkage Disequilibrium (LD).
+<li>(<b>Step 3</b>) uses functional genomic datasets (including genomic proximity, quantitative trait locus (QTL) and promoter capture Hi-C data) to identify core genes.
+<li>(<b>Step 4</b>) networks core genes to each other and to additional (peripheral) genes based on the knowledge of protein interactions, generating a ranked list of core and peripheral genes.
+<li>(<b>More controls</b>) fine-tunes parameters involved in steps described above.
+</ul>
+
+<h5>Output</h5>
+<ul>
+<li>(<a href="/app/examples/_tmp_RMD_cTGene.html" download="/app/examples/_tmp_RMD_cTGene.html" target="/app/examples/_tmp_RMD_cTGene.html"><i class="fa fa-cloud-download fa" aria-hidden="true"></i>&nbspExample Output</a>) includes an interactive table for targets at the gene level, and a manhattan plot (illustrating priority rating for target genes color-coded by chromosomes).
+</ul>
+';
+
+my $default_network='STRING_high';
+my $i=0;
+my $net_order;
+$net_order->{'STRING_highest'}=$i++;
+$net_order->{'STRING_high'}=$i++;
+$net_order->{'STRING_medium'}=$i++;
+my $networks={
+    STRING_highest => "Protein interactions with highest confidence (0.9)",
+    STRING_high => "Protein interactions with high confidence (0.7)",
+    STRING_medium => "Protein interactions with medium confidence (0.4)",
+};
+
+my $default_qtl='pQTL_Plasma';
+$i=0;
+my $qtl_order;
+$qtl_order->{'NA'}=$i++;
+$qtl_order->{'QTL_all'}=$i++;
+$qtl_order->{'eQTL_eQTLGen'}=$i++;
+$qtl_order->{'pQTL_Plasma'}=$i++;
+my $qtls={
+	NA => "Don't include QTL datasets",
+    QTL_all => "Include all below",
+    eQTL_eQTLGen => "eQTL (blood from eQTLGen)",
+    pQTL_Plasma => "pQTL (plasma)",
+};
+
+my $default_rgb='PCHiC_PMID27863249_Monocytes';
+$i=0;
+my $rgb_order;
+$rgb_order->{'NA'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Activated_total_CD4_T_cells'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Endothelial_precursors'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Erythroblasts'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Fetal_thymus'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Macrophages_M0'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Macrophages_M1'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Macrophages_M2'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Megakaryocytes'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Monocytes'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Naive_B_cells'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Naive_CD4_T_cells'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Naive_CD8_T_cells'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Neutrophils'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Nonactivated_total_CD4_T_cells'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Total_B_cells'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Total_CD4_T_cells'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Total_CD8_T_cells'}=$i++;
+$rgb_order->{'PCHiC_PMID27863249_Combined'}=$i++;
+my $rgbs={
+	NA => "Don't include PCHi-C datasets",
+	PCHiC_PMID27863249_Activated_total_CD4_T_cells => "Activated total CD4+ T cells",
+	PCHiC_PMID27863249_Endothelial_precursors => "Endothelial precursors",
+	PCHiC_PMID27863249_Erythroblasts => "Erythroblasts",
+	PCHiC_PMID27863249_Fetal_thymus => "Fetal thymus",
+    PCHiC_PMID27863249_Macrophages_M0 => "Macrophages M0",
+    PCHiC_PMID27863249_Macrophages_M1 => "Macrophages M1",
+    PCHiC_PMID27863249_Macrophages_M2 => "Macrophages M2",
+    PCHiC_PMID27863249_Megakaryocytes => "Megakaryocytes",
+    PCHiC_PMID27863249_Monocytes => "Monocytes",
+	PCHiC_PMID27863249_Naive_B_cells => "Naive B cells",
+	PCHiC_PMID27863249_Naive_CD4_T_cells => "Naive CD4+ T cells",
+	PCHiC_PMID27863249_Naive_CD8_T_cells => "Naive CD8+ T cells",  
+    PCHiC_PMID27863249_Neutrophils => "Neutrophils",
+	PCHiC_PMID27863249_Nonactivated_total_CD4_T_cells => "Non-activated total CD4+ T cells",
+	PCHiC_PMID27863249_Total_B_cells => "Total B cells",
+	PCHiC_PMID27863249_Total_CD4_T_cells => "Total CD4+ T cells",
+	PCHiC_PMID27863249_Total_CD8_T_cells => "Total CD8+ T cells",
+	PCHiC_PMID27863249_Combined => "Above all (17 primary blood cell types)",
+};
+
+my $default_pop='EUR';
+$i=0;
+my $pop_order;
+$pop_order->{"NA"}=$i++;
+$pop_order->{"AFR"}=$i++;
+$pop_order->{"AMR"}=$i++;
+$pop_order->{"EAS"}=$i++;
+$pop_order->{"EUR"}=$i++;
+$pop_order->{"SAS"}=$i++;
+my $pops={
+    NA => "Don't include LD SNPs",
+    AFR => "AFR: African",
+    AMR => "AMR: Admixed American",
+    EAS => "EAS: East Asian",
+    EUR => "EUR: European",
+    SAS => "SAS: South Asian",
+};
+
+my $example_snps='
+snp	pvalue
+rs11190133	0.000000006
+rs10743181	0.00000002
+rs11229555	0.00000004
+rs11230563	5E-15
+rs174535	2E-11
+rs559928	8E-14
+rs568617	0.00000004
+rs11236797	3E-43
+rs7115956	8E-12
+rs4561177	0.000000001
+rs661054	2E-14
+rs7933433	1E-10
+rs11221332	2E-10
+rs1860545	3E-17
+rs11616188	3E-14
+rs7313895	4E-17
+rs11168249	0.000000006
+rs11614178	2E-34
+rs12369214	0.00000002
+rs3184504	4E-10
+rs17085007	2E-13
+rs941823	7E-11
+rs6561151	1E-22
+rs6651252	2E-17
+rs10758669	5E-43
+rs2812378	0.000000006
+rs7848647	1E-25
+rs726657	1E-14
+rs7468800	0.000000002
+rs4986790	0.00000001
+rs10870077	6E-45
+rs141992399	1E-31
+rs3124998	9E-09
+rs61839660	1E-15
+rs3118471	4E-13
+rs76913543	4E-12
+rs2104286	0.00000004
+rs2236379	9E-09
+rs2050392	0.000000002
+rs34779708	5E-29
+rs10995271	3E-48
+rs7915475	3E-10
+rs2227551	0.00000003
+rs1250573	2E-22
+rs7097656	1E-13
+rs1800682	0.000000004
+rs2497318	3E-11
+rs10748781	6E-51
+rs1847472	5E-10
+rs4946717	1E-21
+rs28701841	6E-10
+rs9491891	5E-15
+rs582757	1E-16
+rs928722	4E-14
+rs9494840	0.000000003
+rs2451258	5E-17
+rs67025039	9E-25
+rs1182188	4E-11
+rs1525735	9E-09
+rs28550029	3E-18
+rs860262	0.000000007
+rs4917129	4E-12
+rs12718244	0.000000002
+rs9297145	0.00000001
+rs6466198	1E-21
+rs7805114	5E-11
+rs4728142	2E-11
+rs2538470	2E-10
+rs10094579	2E-10
+rs1551399	4E-19
+rs2042011	0.00000004
+rs11749040	7E-28
+rs9687958	3E-16
+rs353339	5E-13
+rs71624119	0.00000002
+rs4703855	0.00000003
+rs34804116	3E-10
+rs469758	6E-54
+rs2910686	2E-21
+rs2549803	4E-12
+rs17622378	2E-55
+rs6863411	0.000000002
+rs11749391	2E-42
+rs74817271	2E-26
+rs56167332	3E-43
+rs12188300	3E-34
+rs4921482	9E-25
+rs6556411	3E-11
+rs72812861	0.00000001
+rs1267499	1E-11
+rs2328530	1E-17
+rs714830	0.000000005
+rs71559680	6E-12
+rs72928038	2E-10
+rs16841904	0.000000002
+rs7552167	0.00000001
+rs12131796	5E-41
+rs3024493	1E-38
+rs12075255	3E-11
+rs2666218	9E-10
+rs13407913	3E-18
+rs6600247	9E-29
+rs80174646	1E-143
+rs7517847	1E-98
+rs10889676	2E-24
+rs183686347	6E-14
+rs2476601	3E-12
+rs4845604	2E-16
+rs6693105	4E-24
+rs11675538	0.00000003
+rs4851529	1E-14
+rs12987977	3E-17
+rs871656	0.000000001
+rs2111485	3E-13
+rs35667974	5E-10
+rs3747517	0.000000002
+rs72871627	0.00000001
+rs17229679	3E-17
+rs6434978	1E-10
+rs34920465	3E-13
+rs2816958	4E-15
+rs6697886	2E-10
+rs2234161	2E-11
+rs3766606	9E-14
+rs6426833	7E-62
+rs3806308	1E-24
+rs4655215	8E-20
+rs1260326	2E-23
+rs925255	8E-18
+rs77981966	2E-16
+rs7608910	2E-32
+rs702872	4E-11
+rs4672505	2E-52
+rs4129267	9E-18
+rs4971079	3E-10
+rs78973538	0.00000003
+rs1333062	2E-11
+rs10800314	1E-32
+rs61802846	0.000000001
+rs6425143	1E-17
+rs4243971	0.000000005
+rs6058869	0.000000004
+rs4812833	7E-16
+rs1883832	4E-12
+rs1328454	0.000000004
+rs259964	4E-12
+rs6062496	2E-30
+rs2823288	4E-28
+rs2284553	4E-16
+rs9977672	5E-54
+rs1893592	0.000000006
+rs4456788	6E-25
+rs2266961	4E-15
+rs140135	0.000000006
+rs2143178	2E-33
+rs5757584	0.000000004
+rs1569414	6E-10
+rs10761648	6E-16
+rs10775412	3E-19
+rs28998802	7E-12
+rs9797244	1E-10
+rs9889296	5E-21
+rs35736272	6E-30
+rs12942547	2E-15
+rs12943464	2E-14
+rs3853824	0.00000002
+rs1292035	3E-11
+rs196941	8E-10
+rs17780256	6E-11
+rs66504140	0.00000002
+rs12968719	2E-26
+rs62097857	1E-11
+rs2024092	2E-18
+rs72977586	0.000000004
+rs74956615	2E-22
+rs35018800	5E-12
+rs12720356	0.000000002
+rs35074907	0.000000006
+rs4802307	2E-11
+rs679574	1E-17
+rs9554587	9E-10
+rs2145623	3E-10
+rs8006884	7E-10
+rs1569328	0.000000002
+rs11624293	2E-17
+rs16967103	0.000000005
+rs17293632	1E-16
+rs35874463	1E-11
+rs367569	5E-14
+rs11649613	3E-10
+rs7195296	3E-13
+rs7404095	0.000000003
+rs26528	3E-29
+rs11363316	4E-30
+rs11574938	5E-14
+rs1870293	1E-10
+rs2066845	6E-94
+rs2357623	4E-48
+rs72796367	1E-16
+rs2066847	0
+rs11117431	5E-16
+rs12932970	0.00000001
+rs7426056	1E-20
+rs5837881	3E-12
+rs11676348	2E-11
+rs7556897	8E-12
+rs12694846	5E-15
+rs35300242	5E-67
+rs3749171	2E-25
+rs4676406	6E-10
+rs35320439	7E-10
+rs73178598	3E-13
+rs1001007	0.00000002
+rs3197999	7E-55
+rs116046827	8E-11
+rs6781808	0.000000008
+rs11098964	0.00000002
+rs13107612	3E-10
+rs3774937	2E-18
+rs59867199	7E-20
+rs11750385	0.00000004
+rs3776414	0.000000006
+rs395157	8E-15
+rs1992661	1E-74
+';
+%>
+
+<div class="container">
+	<div class="jumbotron1">
+	
+		<div class="text-right">
+			% if(0){
+				<a href="javascript:newWin('http://pi.well.ox.ac.uk/PiERbooklet/#ctgene', 'PiERbooklet', '909', '1169')"><span class="fa fa-book fa-lg"></span>&nbsp;BOOKLET</a>
+			% }else{
+				<a href="javascript:newWin('/PiERbooklet/index.html#ctgene', 'PiERbooklet', '909', '1169')"><span class="fa fa-book fa-lg"></span>&nbsp;BOOKLET</a>
+			% }
+			
+		</div>
+	
+		<div class="text-center">
+			<h3><a href="/c/TGene"><i class="fa fa-gears fa-lg"></i>&nbsp;cTGene</a>&nbsp;-&nbsp;Prioritising targets at the gene level from input SNPs</h3>		
+		</div>
+	</div>
+</div>
+
+<!-- error text -->
+<div id="error-container" class="container collapse">
+	<div id="errorText" style="display: block">
+		<p class="text_justify">
+			
+<h5>Error Message: your input at Step 1</h5>
+<ul>
+<li>Please check your input SNP identifiers (<b>dbSNP rsIDs</b>) and p-values (<b>between 0 and 1</b>); otherwise they will be ignored.
+<li>Please paste your own data at Step 1 <strong>every time</strong> before clicking the Submit button. Notably, the text box at Step 1 is always filled with the provided example when the interface page is first-visited or refreshed.
+</ul>
+						
+		</p>
+	</div>
+</div>
+
+<hr>
+
+<!-- progress bar -->
+<div id="progress-container" class="container collapse">
+	<div class="progress progress-striped active">
+		<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+			<i class="fa fa-gears fa-spin fa-lg"></i>&nbsp;&nbsp;cTGene - Prioritising target genes ... (please don't refresh this page)
+		</div>
+	</div>
+</div>
+
+
+<!-- form -->
+<div id="form-container" class="container collapse in">
+	
+	% if(0){
+		<a id="displayText" href="javascript:toggle();" class="btn btn-danger btn-sm active">Show Info</a>&nbsp;<a class="btn btn-primary btn-sm active" role="button" href="/app/examples/_tmp_RMD_cTGene.html" download="/app/examples/_tmp_RMD_cTGene.html" target="/app/examples/_tmp_RMD_cTGene.html"><i class="fa fa-cloud-download fa-lg" aria-hidden="true"></i>&nbsp;Example Output (Self-Contained Dynamic HTML)</a>
+	% }else{
+		<a id="displayText" href="javascript:toggle();" class="btn btn-danger btn-sm active">Show Info</a>&nbsp;<a class="btn btn-danger btn-sm active" role="button" href="javascript:newWin('/app/examples/_tmp_RMD_cTGene.html', 'Example', '909', '1169')"><i class="fa fa-key fa-lg" aria-hidden="true"></i>&nbsp;Example I/O</a>
+	% }
+	
+	<div id="toggleText" style="display: none">
+		<p class="text_justify">
+			<%== $info %>
+		</p>
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-12">
+			
+			<form id="submit-form" class="form-horizontal" enctype="multipart/form-data" method="POST">
+				
+				<p><strong>Step 1</strong>: Paste your SNPs here (1st column for dbSNP rsIDs, 2nd for significance info).</p>
+				
+				<div class="form-group">
+					<div class="col-sm-12">
+						<textarea id="snplist" name="snplist" class="form-control table" rows="4" required="required"><%== $example_snps %></textarea>
+						<!--
+						<p class="help-block">
+							Examples: <a href="/app/examples/AS.txt" target="random" rel="nofollow" >Ankylosing Spondylitis</a> (AS); <a href="/app/examples/Spondyloarthritis.txt" target="random" rel="nofollow" >Spondyloarthritis</a> (including AS and Psoriatic Arthritis); <a href="/app/examples/SLE.txt" target="random" rel="nofollow" >Systemic Lupus Erythematosus</a> (SLE)
+						</p>
+						-->
+					</div>
+				</div>
+
+				<p><strong>Step 2</strong>: Include SNPs in Linkage Disequilibrium (LD) defined by which population.</p>
+				<div class="form-group">
+					<label class="control-label col-sm-5" for="pop">Population</label>
+					<div class="col-sm-7">
+						<select name="pop" id="pop" class="form-control">
+							% foreach my $pop (sort{$pop_order->{$a} <=> $pop_order->{$b}} keys %$pop_order) {
+							% my $selected = ($pop eq $default_pop)? ' SELECTED':'';
+							% if ($pop eq 'AFR'){
+								<OPTGROUP LABEL="Populations">
+								<OPTION VALUE="<%= $pop %>"<%= $selected %>><%== $pops->{$pop} %></OPTION>
+							% }elsif ($pop eq 'SAS'){
+								<OPTION VALUE="<%= $pop %>"<%= $selected %>><%== $pops->{$pop} %></OPTION>
+								</OPTGROUP>							
+							% }else{
+								<OPTION VALUE="<%= $pop %>"<%= $selected %>><%== $pops->{$pop} %></OPTION>
+							% }
+							%}
+						</select>
+					</div>
+				</div>
+
+				<p><strong>Step 3</strong>: Define core genes based on genomic proximity, quantitative trait locus (QTL) and promoter capture Hi-C (PCHi-C).</p>
+				<div class="form-group">
+					<label class="control-label col-sm-5" for="distance">Distance-to-SNP window:</label>
+					<div class="col-sm-7">
+						<select name="distance" id="distance" class="form-control">
+							<option value="5000">Within 5Kb</a>
+							<option value="10000">Within 10Kb</a>
+							<option value="20000" selected>Within 20Kb</a>
+							<option value="50000">Within 50Kb</a>
+							<option value="100000">Within 0.1Mb</a>
+							<option value="200000">Within 0.2Mb</a>
+							<option value="500000">Within 0.5Mb</a>
+							<option value="1000000">Within 1Mb</a>
+						</select>
+					</div>
+					<label class="control-label col-sm-5" for="QTL">QTL datasets:</label>
+					<div class="col-sm-7">
+						<select name="QTL" id="QTL" class="form-control">
+							% foreach my $qtl (sort{$qtl_order->{$a} <=> $qtl_order->{$b}} keys %$qtl_order) {
+							% my $selected = ($qtl eq $default_qtl)? ' SELECTED':'';
+							% if ($qtl eq 'eQTL_eQTLGen'){
+								<OPTGROUP LABEL="Blood eQTL (Nature Genetics 2021; PMID34475573)">
+								<OPTION VALUE="<%= $qtl %>"<%= $selected %>><%== $qtls->{$qtl} %></OPTION>
+							% }elsif ($qtl eq 'pQTL_Plasma'){
+								</OPTGROUP>
+								<OPTGROUP LABEL="Plasma pQTL (Nature 2018; PMID29875488)">
+								<OPTION VALUE="<%= $qtl %>"<%= $selected %>><%== $qtls->{$qtl} %></OPTION>
+								</OPTGROUP>
+							% }else{
+								<OPTION VALUE="<%= $qtl %>"<%= $selected %>><%== $qtls->{$qtl} %></OPTION>
+							% }
+							%}
+						</select>
+					</div>
+					<label class="control-label col-sm-5" for="RGB">PCHi-C datasets:</label>
+					<div class="col-sm-7">
+						<select name="RGB" id="RGB" class="form-control">
+							% foreach my $rgb (sort{$rgb_order->{$a} <=> $rgb_order->{$b}} keys %$rgb_order) {
+							% my $selected = ($rgb eq $default_rgb)? ' SELECTED':'';
+							% if ($rgb eq 'PCHiC_PMID27863249_Activated_total_CD4_T_cells'){
+								<OPTGROUP LABEL="Primary blood cell types (Cell 2016; PMID27863249)">
+								<OPTION VALUE="<%= $rgb %>"<%= $selected %>><%== $rgbs->{$rgb} %></OPTION>
+							% }elsif ($rgb eq 'PCHiC_PMID27863249_Combined'){
+								<OPTION VALUE="<%= $rgb %>"<%= $selected %>><%== $rgbs->{$rgb} %></OPTION>
+								</OPTGROUP>
+							% }else{
+								<OPTION VALUE="<%= $rgb %>"<%= $selected %>><%== $rgbs->{$rgb} %></OPTION>
+							% }
+							%}
+						</select>
+					</div>
+				</div>
+				
+				<p><strong>Step 4</strong>: Network core and peripheral genes using knowledge of protein interactions.</p>
+				<div class="form-group">
+					<label class="control-label col-sm-5" for="network">Network:</label>
+					<div class="col-sm-7">
+						<select name="network" id="network" class="form-control">
+							% foreach my $network (sort{$net_order->{$a} <=> $net_order->{$b}} keys %$net_order) {
+							% my $selected = ($network eq $default_network)? ' SELECTED':'';
+							% if($network eq 'STRING_highest'){
+								<OPTGROUP LABEL="Protein interaction networks (the STRING database)">
+								<OPTION VALUE="<%= $network %>"<%= $selected %>><%== $networks->{$network} %></OPTION>
+							% }elsif ($network eq 'STRING_medium'){
+								<OPTION VALUE="<%= $network %>"<%= $selected %>><%== $networks->{$network} %></OPTION>
+								</OPTGROUP>
+							% }else{
+								<OPTION VALUE="<%= $network %>"<%= $selected %>><%== $networks->{$network} %></OPTION>
+							% }
+							%}
+						</select>
+					</div>
+				</div>
+				
+				<!-- Advanced begin ################### -->
+				<div class="form-group" id="advanced-toggle">
+					<div class="col-md-12">
+						 
+						<button type="button" class="btn btn-default btn-block" style="text-align:left" data-toggle="collapse" data-target="#more-options">
+							<i class="fa fa-chevron-circle-down fa-lg"></i> <strong class="my-tooltip" data-toggle="tooltip" data-placement="auto right" title="Specify additional parameters for more controls">More Controls</strong></a>
+						</button>
+						
+						<div id="more-options" class="row collapse">
+							<div class="col-md-12" style="border: 1px solid #fff">
+							
+								<!-- significance.threshold -->
+								<i class="fa fa-hand-o-right fa-lg"></i> <strong>SNP significance</strong> (SNPs with intolerable significance will be ignored).
+								<div class="form-group">
+									<label class="control-label col-sm-5">P-value threshold:</label>
+									<div class="col-sm-7">
+										<select name="significance_threshold" class="form-control">
+											<option value="1e-5">1e-5</a>
+											<option value="5e-8" selected>5e-8</a>
+											<option value="NULL">None</a>
+										</select>
+									</div>									
+								</div>
+							
+								<!-- restart -->
+								<i class="fa fa-hand-o-right fa-lg"></i> <strong>Restarting probability</strong> (controlling network influential range that the walker will explore starting from core genes).
+								<div class="form-group">
+									<label class="control-label col-sm-5">Restarting probability:</label>
+									<div class="col-sm-7">
+										<select name="restart" class="form-control">
+											<option value="0">0</a>
+											<option value="0.1">0.1</a>
+											<option value="0.2">0.2</a>
+											<option value="0.3">0.3</a>
+											<option value="0.4">0.4</a>
+											<option value="0.5">0.5</a>
+											<option value="0.5">0.6</a>
+											<option value="0.7" selected>0.7</a>
+											<option value="0.8">0.8</a>
+											<option value="0.9">0.9</a>
+										</select>
+									</div>									
+								</div>
+								
+								<!-- highlight top -->
+								<i class="fa fa-hand-o-right fa-lg"></i> <strong>Manhattan plot</strong> (top prioritised genes to be labelled).
+								<div class="form-group">
+									<label class="control-label col-sm-5">Number of genes:</label>
+									<div class="col-sm-7">
+										<select name="highlight_top" class="form-control">
+											<option value="10">10</a>
+											<option value="20">20</a>
+											<option value="30" selected>30</a>
+											<option value="40">40</a>
+											<option value="50">50</a>
+										</select>
+									</div>			
+								</div>
+								
+							</div>
+						</div>
+
+						
+					</div>
+				</div>
+				<!-- Advanced end ################### -->
+				
+				<!-- Button -->
+				<div class="form-group">
+					<label class="col-md-12 control-label" for="submit"></label>
+					<div class="col-md-12">
+						<input class="btn btn-primary btn-block" id="submit" type="submit" value="Submit" />
+					</div>
+				</div>
+				
+			</form>
+			
+		</div>
+		
+	</div>
+	
+</div>
+
+
+<div id="results-container" class="container collapse">
+
+	<div class="row">
+		<div class="col-lg-12">
+			<h3 class="my-fontfamily"> Prioritisation results (interactive)&nbsp;<a class="btn btn-primary btn-sm active" role="button" href="javascript:newWin('<%= $ajax_rmd_html_file %>', 'Explore', '909', '1169')"><i class="fa fa-chrome fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;Explore</a>&nbsp;<a class="btn btn-primary btn-sm active" role="button" href="<%= $ajax_rmd_html_file %>" download="<%= $ajax_rmd_html_file %>" target="<%= $ajax_rmd_html_file %>"><i class="fa fa-cloud-download fa-lg" aria-hidden="true"></i>&nbsp;Download</a></h3>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="form-group">
+			<div class="col-lg-12">
+				<div class="embed-responsive embed-responsive-4by3">
+					<iframe class="embed-responsive-item" src="<%= $ajax_rmd_html_file %>"></iframe>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+  	
+</div>
+

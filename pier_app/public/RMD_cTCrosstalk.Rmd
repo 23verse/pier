@@ -1,0 +1,220 @@
+---
+title: ""
+always_allow_html: yes
+output:
+  rmarkdown::html_document:
+        toc: false
+        toc_depth: 2
+        number_sections: false
+        theme: readable
+        highlight: default
+        toc_float: false
+        code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results="asis")
+knitr::opts_chunk$set(cache=FALSE)
+knitr::opts_chunk$set(echo=FALSE)
+knitr::opts_chunk$set(warning=FALSE)
+knitr::opts_chunk$set(message=FALSE)
+knitr::opts_chunk$set(fig_cap="yes")
+```
+
+```{r, eval=FALSE, echo=FALSE}
+cd ~/Sites/XGR/PiER-site
+################################################
+R
+library(tidyverse)
+## rmarkdown::render + bookdown::html_document2
+rmarkdown::render("now.RMD_cTCrosstalk.Rmd", bookdown::html_document2(number_sections=F,theme="readable", hightlight="default"), output_dir="/Users/hfang/Sites/XGR/PiER-site/app/examples")
+
+q('no')
+################################################
+```
+
+
+# {.tabset .tabset-fade}
+
+
+## **Input into cTCrosstalk**
+Completed at `r format(Sys.time(), "%a %b %d %X %Y")` (`r Sys.timezone()`), with the runtime of `r ls_rmd$runtime` on the server side (not including the runtime on the client/user side).
+
+> **An interactive table** of user-input SNPs, with 1st column `SNPs` for dbSNP rsIDs, 2nd column `P-values` for significance info.
+
+```{r}
+data_input <- ls_rmd$data_input %>% transmute(SNPs=SNP, `P-values`=PVALUE)
+
+message(sprintf("'%d' '%s' (%s) ...", nrow(data_input), getwd(), as.character(Sys.time())), appendLF=TRUE)
+
+data_input %>% DT::datatable(options=list(pageLength=5,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```
+
+
+## **Output: target genes**
+
+> **Manhattan plot** illustrates priority rating for target genes that are color-coded by chromosomes, with the top `r ls_rmd$highlight_top` target genes labelled. Also provided is an editable PDF file for download.
+
+```{r}
+hlink_pdf <- oAuxEmbed(ls_rmd$pdf_manhattan, link.text="Download PDF")
+```
+<div class="text-right">`r hlink_pdf`</div>
+
+```{r manhattan, fig.cap="Manhattan plot illustrating priority rating (y-axis) for target genes (color-coded by chromosomes; x-axis), with top target genes labelled.", fig.width=9, fig.height=3, echo=FALSE, eval=T, fig.align="center",out.width="100%"}
+library(png)
+library(grid)
+#filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'dTarget_manhattan.png')
+filename <- ls_rmd$png_manhattan
+img <- readPNG(filename)
+grid.raster(img)
+```
+
+<hr>
+
+> **Prioritisation table** for targets at the gene level, each receiving 5-star priority rating (scored 0-5; see the column `Rating`) and its rank (see the column `Rank`). The prioritised target genes are cross-referenced and hyperlinked to [GeneCards](https://www.genecards.org); see the column `Genes`. The column `Type` tells the target gene type (either `Core` for core genes or `Peripheral` for peripheral genes). Also provided is a summary of evidence used to define core genes, including columns `Proximity` (evidence of genomic proximity), `QTL` (e/pQTL evidence) and `PCHiC` (conformation evidence). For details on evidence, please refer to **`Evidence table`**.
+
+```{r}
+#filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'dTarget_priority.xlsx')
+filename <- ls_rmd$xlsx_priority
+
+message(sprintf("'%s' '%s' (%s) ...", filename, getwd(), as.character(Sys.time())), appendLF=TRUE)
+
+tb <- openxlsx::read.xlsx(filename) %>% as_tibble() %>% mutate(Genes=sprintf("<a href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=%s' target='%s''>%s</a>", Gene, Gene, Gene)) %>% transmute(Genes, Rank, Rating, Type, Proximity, QTL, PCHiC, Description)
+
+tb %>% DT::datatable(options=list(pageLength=5,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```
+
+> **Evidence table** for core genes, showing which SNPs (see the column `SNPs`) are used to define core genes (the column `Core genes`) based on which evidence (see the column `Evidence`). The column `SNP type` tells the SNP type (either `Input` for use-input SNPs or `LD` for LD SNPs). Notably, the column `Evidence` details datasets used: the prefix `Proximity_` indicative of SNPs in the proximity, the prefix `PCHiC_` for PCHi-C datasets, and the prefix `QTL_` for e/pQTL datasets.
+
+```{r}
+#filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'dTarget_evidence.xlsx')
+filename <- ls_rmd$xlsx_evidence
+
+message(sprintf("'%s' '%s' (%s) ...", filename, getwd(), as.character(Sys.time())), appendLF=TRUE)
+
+tb <- openxlsx::read.xlsx(filename) %>% as_tibble() %>% transmute(`Core genes`=Gene, SNPs=SNP, `SNP type`=SNP_type, Evidence)
+
+tb %>% DT::datatable(options=list(pageLength=5,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```
+
+
+## **Output: target pathways**
+
+> **A dot plot** for target pathways that are prioritised based on KEGG pathway enrichment analysis of the top `r 100*ls_rmd$pathway_top`% prioritised target genes. Also provided is an editable PDF file for download.
+
+```{r}
+hlink_pdf <- oAuxEmbed(ls_rmd$pdf_kegg, link.text="Download PDF")
+```
+<div class="text-right">`r hlink_pdf`</div>
+
+
+```{r pathway, fig.cap="Enriched/prioritised pathways based on the top prioritised target genes.", fig.width=5, fig.height=4, echo=FALSE, eval=T, fig.align="center",out.width="60%"}
+library(png)
+library(grid)
+#filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'dTarget_KEGG.png')
+filename <- ls_rmd$png_kegg
+img <- readPNG(filename)
+grid.raster(img)
+```
+
+<hr>
+
+> **Prioritisation table** for target pathways. Each prioritised pathway (the column `Pathways`) of belonging KEGG category (the column `Category`) has the enrichment z-score (the column `Z-score`), the enrichment significant level (the column `FDR`), the number of member genes (the column `Num`) and the member list (the column `Members`)
+
+```{r}
+#filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'dTarget_KEGG.xlsx')
+filename <- ls_rmd$xlsx_kegg
+
+message(sprintf("'%s' '%s' (%s) ...", filename, getwd(), as.character(Sys.time())), appendLF=TRUE)
+
+tb <- openxlsx::read.xlsx(filename) %>% as_tibble() %>% transmute(Category=namespace, Pathways=name, `Z-score`=zscore, FDR=signif(adjp,digits=4), Num=nO, Members=overlap) %>% arrange(FDR)
+
+tb %>% DT::datatable(options=list(pageLength=2,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```
+
+
+## **Output: targets at the crosstalk level**
+
+> **A network visualisation** of pathway crosstalk, with genes/nodes color-coded by priority rating and labelled in the form of `rating®rank`.`r if(ls_rmd$combinedP<1){str_c(" The significance (p-value) of observing the identified crosstalk by chance is ",as.character(ls_rmd$combinedP),", as estimated by a degree-preserving node permutation test. ")}` Also provided is an editable PDF file for download.
+
+```{r}
+if(ls_rmd$combinedP < 1){
+	message(sprintf("The significance of observing the identified crosstalk by chance: P-value = %1.2e (estimated by a degree-preserving node permutation test).", ls_rmd$combinedP), appendLF=TRUE)
+}
+```
+
+```{r}
+hlink_pdf <- oAuxEmbed(ls_rmd$pdf_crosstalk, link.text="Download PDF")
+```
+<div class="text-right">`r hlink_pdf`</div>
+
+```{r crosstalk, fig.cap="The crosstalk between pathways. Genes/nodes are color-coded by priority rating and labelled in the form of `rating@rank`, while interactions/edges are defined by KEGG pathways.", fig.width=6, fig.height=6, echo=FALSE, eval=T, fig.align="center",out.width="60%"}
+library(png)
+library(grid)
+#filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'dTarget_crosstalk.png')
+filename <- ls_rmd$png_crosstalk
+img <- readPNG(filename)
+grid.raster(img)
+```
+
+<hr>
+
+> **Prioritisation table** for pathway crosstalk genes, with the column `Rating` for priority rating and the column `Rank` for the priority rank. The crosstalk genes (the column `Crosstalk genes`) are cross-referenced and hyperlinked to [GeneCards](https://www.genecards.org). Also provided is a summary of evidence, including columns `Proximity` (evidence of genomic proximity), `QTL` (e/pQTL evidence) and `PCHiC` (conformation evidence). For details on evidence, please refere to **`Evidence table`**.
+
+```{r}
+#filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'dTarget_crosstalk.xlsx')
+filename <- ls_rmd$xlsx_crosstalk
+
+message(sprintf("'%s' '%s' (%s) ...", filename, getwd(), as.character(Sys.time())), appendLF=TRUE)
+
+tb <- openxlsx::read.xlsx(filename) %>% as_tibble() %>% mutate(Genes=sprintf("<a href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=%s' target='%s''>%s</a>", Gene, Gene, Gene)) %>% transmute(`Crosstalk genes`=Genes, Rank, Rating, Proximity, QTL, PCHiC, Description)
+
+tb %>% DT::datatable(options=list(pageLength=5,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```
+
+> **Evidence table** for pathway crosstalk genes, showing which SNPs (see the column `SNPs`) are used to crosstalk genes (the column `Crosstalk genes`) based on which evidence (see the column `Evidence`). The column `SNP type` tells the SNP type (either `Input` for use-input SNPs or `LD` for LD SNPs). Notably, the column `Evidence` details datasets used: the prefix `Proximity_` indicative of SNPs in the proximity, the prefix `PCHiC_` for PCHi-C datasets, and the prefix `QTL_` for e/pQTL datasets.
+
+```{r}
+#filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'dTarget_crosstalk_evidence.xlsx')
+filename <- ls_rmd$xlsx_crosstalk_evidence
+
+message(sprintf("'%s' '%s' (%s) ...", filename, getwd(), as.character(Sys.time())), appendLF=TRUE)
+
+tb <- openxlsx::read.xlsx(filename) %>% as_tibble() %>% transmute(`Crosstalk genes`=Gene, SNPs=SNP, `SNP type`=SNP_type, Evidence)
+
+tb %>% DT::datatable(options=list(pageLength=5,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```
+
+
+## **Output: crosstalk-based drug repurposing**
+
+> **A heatmap-like illustration** showing drug repurposing analysis of approved drugs (licensed medications) based on pathway crosstalk genes, with crosstalk genes on y-axis, disease indications on x-axis, red dots indexed in number and referenced beneath in the table where the information on approved drugs and mechanisms of action is detailed. Also provided is an editable PDF file for download.
+
+```{r}
+hlink_pdf <- oAuxEmbed(ls_rmd$pdf_repurposing, link.text="Download PDF")
+```
+<div class="text-right">`r hlink_pdf`</div>
+
+```{r repurposing, fig.cap="Drug repurposing analysis of approved drugs (licensed medications) based on pathway crosstalk genes. The heatmap shows crosstalk genes (y-axis) and disease indications (x-axis), with red dots indexed in number and referenced beneath within the table where the information on approved drugs and mechanisms of action is also listed.", fig.width=10, fig.height=5.8, echo=FALSE, eval=T, fig.align="center",out.width="80%"}
+library(png)
+library(grid)
+#filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'Crosstalk.approved.png')
+filename <- ls_rmd$png_repurposing
+img <- readPNG(filename)
+grid.raster(img)
+```
+
+<hr>
+
+> **An interactive table** of crosstalk genes (the column `Crosstalk genes`), disease indications (the column `Disease indications`), approved drugs and mechanisms (the column `Approved drugs (mechanisms of action)`), and drug index (the column `Index`) shown above within the dot plot. The crosstalk genes are cross-referenced and hyperlinked to [GeneCards](https://www.genecards.org).
+
+```{r}
+#filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'Crosstalk.approved.xlsx')
+filename <- ls_rmd$xlsx_repurposing
+
+message(sprintf("'%s' '%s' (%s) ...", filename, getwd(), as.character(Sys.time())), appendLF=TRUE)
+
+tb <- openxlsx::read.xlsx(filename) %>% as_tibble() %>% mutate(Genes=sprintf("<a href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=%s' target='%s''>%s</a>", Target, Target, Target)) %>% transmute(`Crosstalk genes`=Genes, `Disease indications`=Disease, `Approved drugs (mechanisms of action)`=Drug, Index=Drug_index)
+
+tb %>% DT::datatable(options=list(pageLength=5,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```

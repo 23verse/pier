@@ -1,0 +1,98 @@
+---
+title: ""
+always_allow_html: yes
+output:
+  rmarkdown::html_document:
+        toc: false
+        toc_depth: 2
+        number_sections: false
+        theme: readable
+        highlight: default
+        toc_float: false
+        code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results="asis")
+knitr::opts_chunk$set(cache=FALSE)
+knitr::opts_chunk$set(echo=FALSE)
+knitr::opts_chunk$set(warning=FALSE)
+knitr::opts_chunk$set(message=FALSE)
+knitr::opts_chunk$set(fig_cap="yes")
+```
+
+```{r, eval=FALSE, echo=FALSE}
+cd ~/Sites/XGR/PiER-site
+################################################
+R
+library(tidyverse)
+## rmarkdown::render + bookdown::html_document2
+rmarkdown::render("now.RMD_eV2CG.Rmd", bookdown::html_document2(number_sections=F,theme="readable", hightlight="default"), output_dir="/Users/hfang/Sites/XGR/PiER-site/app/examples")
+
+rmarkdown::render("pier_app/public/RMD_eV2CG.Rmd", bookdown::html_document2(number_sections=F,theme="readable", hightlight="default"))
+
+/home/hfang/R-3.6.2/bin/R
+rmarkdown::pandoc_available()
+Sys.setenv(RSTUDIO_PANDOC="/home/hfang/.local/bin")
+
+rmarkdown::render("pier_app/public/RMD_eV2CG.Rmd", bookdown::html_document2(number_sections=F,theme="readable", hightlight="default"))
+
+wget https://github.com/jgm/pandoc/releases/download/2.16.2/pandoc-2.16.2-linux-amd64.tar.gz
+tar xvzf pandoc-2.16.2-linux-amd64.tar.gz --strip-components 1 -C $HOME/.local
+#export RSTUDIO_PANDOC=$HOME/.local/bin/pandoc
+#echo $RSTUDIO_PANDOC
+
+q('no')
+################################################
+```
+
+
+# {.tabset .tabset-fade}
+
+
+## **Input into eCG2PG**
+Completed at `r format(Sys.time(), "%a %b %d %X %Y")` (`r Sys.timezone()`), with the runtime of `r ls_rmd$runtime` on the server side (not including the runtime on the client/user side).
+
+> **An interactive table** of user-defined core genes, with 1st column `Genes` for gene symbols, 2nd column `Weights` for gene weights. For example, take as inputs the resulting output from `eV2CG`.
+
+```{r}
+data_input <- ls_rmd$data_input
+
+message(sprintf("'%d' '%s' (%s) ...", nrow(data_input), getwd(), as.character(Sys.time())), appendLF=TRUE)
+
+data_input %>% DT::datatable(options=list(pageLength=5,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```
+
+
+## **Output: core and peripheral genes**
+
+> **Manhattan plot** illustrates affinity scores for genes that are color-coded by chromosomes, with the top `r ls_rmd$highlight_top` genes labelled. Also provided is an editable PDF file for download.
+
+```{r}
+hlink_pdf <- oAuxEmbed(ls_rmd$pdf_manhattan, link.text="Download PDF")
+```
+<div class="text-right">`r hlink_pdf`</div>
+
+```{r manhattan, fig.cap="Manhattan plot illustrating scores (y-axis) for genes (color-coded by chromosomes; x-axis), with top scored genes labelled.", fig.width=9, fig.height=3, echo=FALSE, eval=T, fig.align="center",out.width="100%"}
+library(png)
+library(grid)
+#filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'dTarget_manhattan.png')
+filename <- ls_rmd$png_manhattan
+img <- readPNG(filename)
+grid.raster(img)
+```
+
+<hr>
+
+> **An interactive table** of core and peripheral genes, with the column `Scores` quantifying the affinity to core genes (sum up to 1) and the column `Type` telling the gene type (either `Core` for core genes or `Peripheral` for peripheral genes). `Genes` are cross-referenced and hyperlinked to [GeneCards](https://www.genecards.org).
+
+```{r}
+#filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'dTarget_priority.xlsx')
+filename <- ls_rmd$xlsx_CG2PG
+
+message(sprintf("'%s' '%s' (%s) ...", filename, getwd(), as.character(Sys.time())), appendLF=TRUE)
+
+tb <- openxlsx::read.xlsx(filename) %>% as_tibble() %>% mutate(`Genes`=sprintf("<a href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=%s' target='%s''>%s</a>", name, name, name)) %>% transmute(Genes, Scores=signif(priority,digits=4), Type=ifelse(seed==1,'Core','Peripheral'), Description=description)
+
+tb %>% DT::datatable(options=list(pageLength=5,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```

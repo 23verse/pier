@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<!-- start html -->
+<html>
+	<!-- start head -->
+	<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="PIER - Webserver">
+		<meta name="author" content="Hai Fang">
+		<link rel="icon" href="/app/img/PIER.icon.png">
+
+		<!-- CSS for Bootstrap -->
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		
+		<!-- CSS for Font Awesome -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		
+    	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    	<link href="http://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+		
+		<!-- CSS for DataTables -->
+		<link rel="stylesheet" type="text/css" href="/dep/dataTables/dataTables.bootstrap.min.css">
+		
+		<!-- CSS for Select2 -->
+		<link rel="stylesheet" type="text/css" href="/dep/Select2/select2.min.css">
+
+		<!-- CSS for bootstrap-toggle -->
+		<link rel="stylesheet" type="text/css" href="/dep/bootstraptoggle/bootstrap-toggle.min.css">
+		
+		<!-- CSS for bootstrap-select -->
+		<link rel="stylesheet" type="text/css" href="/dep/bootstrapselect/bootstrap-select.min.css">
+		
+		<!-- Custom styles for this template -->
+		<link rel="stylesheet" type="text/css" href="/app/css/PIER.css">
+
+		<%= content_for 'css' %>
+
+		<title><%= title %></title>
+
+		
+	<!-- end head -->
+	</head>
+
+	<!-- start body -->
+	<body role="document">
+
+		<!-- Fixed navbar -->
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		  <div class="container">
+		  
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  
+			  % if(0){
+			  	<a class="navbar-brand" href="/">PIER</a>
+			  
+			  %}else{
+				<a class="navbar-brand" class="btn btn-link btn-md active" role="button" href="/" title="Welcome to PIER"> <i class="fa fa-home fa-lg" aria-hidden="true"></i></a>
+			  %}
+			  
+			</div>
+			
+			<div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+			  <ul class="nav navbar-nav navbar-right">
+				
+				<!--
+				<li <%== ($tab=~/home/i)? 'class="active"':'' %>>
+					<a href="/" class="my-tooltip" data-toggle="tooltip" data-placement="auto bottom" title="Welcome to PIER"><span class="fa fa-home fa-lg"></span> Home</a>
+				</li>
+				-->
+				
+				<li class="dropdown<%== ($tab=~/PIER/i)? ' active':'' %>">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-server fa-lg"></span> PiER Facilities <b class="caret"></b></a>
+				  <ul class="dropdown-menu">
+				  	
+				  	<li class="dropdown-header"><h4 class="my-fontfamily">ELEMENTARY</h4></li>
+					<li <%== ($tab=~/e\/V2CG/i)? 'class="active"':'' %>>
+						<a href="/e/V2CG"><h4 class="my-fontfamily"><span class="fa fa-gear"></span>&nbsp;eV2CG</h4></a>
+					</li>
+					<li <%== ($tab=~/e\/CG2PG/i)? 'class="active"':'' %>>
+						<a href="/e/CG2PG"><h4 class="my-fontfamily"><span class="fa fa-gear"></span>&nbsp;eCG2PG</h4></a>
+					</li>
+					<li <%== ($tab=~/e\/Crosstalk/i)? 'class="active"':'' %>>
+						<a href="/e/Crosstalk"><h4 class="my-fontfamily"><span class="fa fa-gear"></span>&nbsp;eCrosstalk</h4></a>
+					</li>
+
+				  	<li role="separator" class="divider"></li>
+				  	
+					<li class="dropdown-header"><h4 class="my-fontfamily">COMBINATORY</h4></li>
+					<li <%== ($tab=~/c\/TGene/i)? 'class="active"':'' %>>
+						<a href="/c/TGene"><h4 class="my-fontfamily"><span class="fa fa-gears"></span>&nbsp;cTGene</h4></a>
+					</li>
+					<li <%== ($tab=~/c\/TCrosstalk/i)? 'class="active"':'' %>>
+						<a href="/c/TCrosstalk"><h4 class="my-fontfamily"><span class="fa fa-gears"></span>&nbsp;cTCrosstalk</h4></a>
+					</li>
+					
+				  </ul>
+				</li>
+				
+			  </ul>
+			</div><!--/.nav-collapse -->
+			
+		  </div>
+		</nav>
+	
+		<div id="alert-container"></div>
+		
+		<%= content_for 'modals' %>
+		
+		<!-- start container theme-showcase -->
+		<div class="container theme-showcase" role="main">
+			<%= content %>
+			
+		  	<hr>
+		  	
+		  	<footer class="text-left">
+				2022 &copy; <a href="https://clustrmaps.com/site/1bnfe" title="Visit PiER tracker" target="clustrmap PiER">PiER</a> | <strong>Web-based facilities</strong> for genetic target prioritisation harnessing human disease genetics, functional genomics and protein interactions | <strong>Algorithm</strong> published in <a href="https://rdcu.be/bIfzE">Nature Genetics</a> with <a href="https://rdcu.be/bIfud" target="NV">News & Views</a> and <a href="https://www.nature.com/articles/s41588-019-0553-1" target="AYIG">A year in genetics</a> | <strong>Recommended</strong> in <a href="https://f1000.com/prime/736064114" target="FP">F1000Prime</a> and Reviewed in <a href="https://doi.org/10.1016/S2665-9913(19)30134-1" target="LR">Lancet Rheumatology</a> | University of Oxford (<a href="mailto:hfang@well.ox.ac.uk"><i class="fa fa-envelope-o"></i></a>) and Ruijin Hospital (<a href="mailto:fh12355@rjh.com.cn"><i class="fa fa-envelope-o"></i></a>)
+		  	</footer>
+		  	
+		<!-- end container theme-showcase -->
+		</div>
+		
+		<!-- JavaScript Placed at the end of the document so the pages load faster -->
+		<!-- JS for jQuery -->
+		<!--
+		<script type="text/javascript" src="/dep/jquery/jquery.min.js"></script>
+		-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>		
+		
+		<!-- JS for Bootstrap -->
+		<!--
+		<script type="text/javascript" src="/dep/bootstrap/bootstrap.min.js"></script>
+		-->
+		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		
+		<!-- JS for DataTables -->
+		<!--
+		<script type="text/javascript" src="/dep/dataTables/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="/dep/dataTables/dataTables.bootstrap.min.js"></script>
+		-->
+		<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+		
+		<!-- JS for Select2 -->
+		<script type="text/javascript" src="/dep/Select2/select2.min.js"></script>
+		<!--
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
+		-->
+		<script type="text/javascript">
+  			//$('select').select2();
+  			
+  			$("[data-toggle='tooltip']").tooltip();
+  			$('.tooltip-show').tooltip('show');
+  			
+  			$("[data-toggle='popover']").popover({trigger: "hover"});
+  			
+			// For progress container
+			$('#submit-form').submit(function() {
+				// disable submit
+				$(this).find('input[type=submit]').prop('disabled', true);
+				
+				// show progress
+				$("#progress-container").addClass("in");
+			});
+			
+			// Info button
+			function toggle() {
+				var ele  = document.getElementById("toggleText");
+				var text = document.getElementById("displayText");
+
+				if(ele.style.display == "block") {
+					ele.style.display = "none";
+					text.innerHTML    = "Show Info";
+				}else {
+					ele.style.display = "block";
+					text.innerHTML    = "Hide Info";
+				}
+			}
+			
+			// new windows			
+			function newWin(url, name, width, height) { 
+				var left = (screen.width/2)-(width/2);
+				var top = (screen.height/2)-(height/2);
+				window.open(url,name,'scrollbars=yes,resizable=yes,fullscreen=yes, width=' + width + ', height='+height+', top='+top+', left='+left);
+			}
+			
+			// Advanced button
+			$('#advanced-toggle').on('shown.bs.collapse', function () {
+			   $("#advanced-toggle button .fa").removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-up");
+			});
+			$('#advanced-toggle').on('hidden.bs.collapse', function () {
+			   $("#advanced-toggle button .fa").removeClass("fa-chevron-circle-up").addClass("fa-chevron-circle-down");
+			});
+			
+			// Resulting panel1 button
+			$('#panel1').on('shown.bs.collapse', function () {
+			   $("#panel1 .glyphicon").removeClass("glyphicon-plus-sign").addClass("glyphicon-minus-sign");
+			});
+			$('#panel1').on('hidden.bs.collapse', function () {
+			   $("#panel1 .glyphicon").removeClass("glyphicon-minus-sign").addClass("glyphicon-plus-sign");
+			});
+			// Resulting panel2 button
+			$('#panel2').on('shown.bs.collapse', function () {
+			   $("#panel2 .glyphicon").removeClass("glyphicon-plus-sign").addClass("glyphicon-minus-sign");
+			});
+			$('#panel2').on('hidden.bs.collapse', function () {
+			   $("#panel2 .glyphicon").removeClass("glyphicon-minus-sign").addClass("glyphicon-plus-sign");
+			});
+			// Resulting panel3 button
+			$('#panel3').on('shown.bs.collapse', function () {
+			   $("#panel3 .glyphicon").removeClass("glyphicon-plus-sign").addClass("glyphicon-minus-sign");
+			});
+			$('#panel3').on('hidden.bs.collapse', function () {
+			   $("#panel3 .glyphicon").removeClass("glyphicon-minus-sign").addClass("glyphicon-plus-sign");
+			});
+  			
+		</script>
+		
+		<!-- http://badge.dimensions.ai/#build -->
+		<script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
+		
+		<!-- JS for HighCharts -->
+        <script type="text/javascript" src="/dep/HighCharts/highcharts.js"></script>
+        <script type="text/javascript" src="/dep/HighCharts/exporting.js"></script>		
+		<!--
+        <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+        <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+        -->
+        <!-- JS for HighCharts barcharts -->
+		<script type="text/javascript" src="/app/js/barcharts.js" ></script>
+		<!-- JS for HighCharts heatmap -->
+		<script type="text/javascript" src="/dep/HighCharts/heatmap.js"></script>		
+		<!--
+		<script src="http://code.highcharts.com/modules/heatmap.js"></script>
+		-->
+		<script type="text/javascript" src="/app/js/heatmapcharts.js" ></script>
+		
+		<!-- JS for bootstrap-toggle -->
+		<script type="text/javascript" src="/dep/bootstraptoggle/bootstrap-toggle.min.js" ></script>	
+
+		<!-- JS for bootstrap-select -->
+		<script type="text/javascript" src="/dep/bootstrapselect/bootstrap-select.min.js" ></script>
+		
+		<%= content_for 'scripts' %>
+		
+	<!-- end body -->
+	</body>
+<!-- end html -->
+</html>

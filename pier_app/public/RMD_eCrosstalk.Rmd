@@ -1,0 +1,86 @@
+---
+title: ""
+always_allow_html: yes
+output:
+  rmarkdown::html_document:
+        toc: false
+        toc_depth: 2
+        number_sections: false
+        theme: readable
+        highlight: default
+        toc_float: false
+        code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results="asis")
+knitr::opts_chunk$set(cache=FALSE)
+knitr::opts_chunk$set(echo=FALSE)
+knitr::opts_chunk$set(warning=FALSE)
+knitr::opts_chunk$set(message=FALSE)
+knitr::opts_chunk$set(fig_cap="yes")
+```
+
+```{r, eval=FALSE, echo=FALSE}
+cd ~/Sites/XGR/PiER-site
+################################################
+R
+library(tidyverse)
+## rmarkdown::render + bookdown::html_document2
+rmarkdown::render("now.RMD_eCrosstalk.Rmd", bookdown::html_document2(number_sections=F,theme="readable", hightlight="default"), output_dir="/Users/hfang/Sites/XGR/PiER-site/app/examples")
+
+q('no')
+################################################
+```
+
+
+# {.tabset .tabset-fade}
+
+
+## **Input into eCrosstalk**
+Completed at `r format(Sys.time(), "%a %b %d %X %Y")` (`r Sys.timezone()`), with the runtime of `r ls_rmd$runtime` on the server side (not including the runtime on the client/user side).
+
+> **An interactive table** of user-defined ranked genes, with 1st column `Genes` for gene symbols, 2nd column `Scores` for gene scores. For example, take as inputs the resulting output from `eCG2PG`.
+
+```{r}
+data_input <- ls_rmd$data_input
+
+message(sprintf("'%d' '%s' (%s) ...", nrow(data_input), getwd(), as.character(Sys.time())), appendLF=TRUE)
+
+data_input %>% DT::datatable(options=list(pageLength=5,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```
+
+
+## **Output: pathway crosstalk**
+
+> **A network visualisation** of pathway crosstalk, with genes/nodes color-coded by input gene scores.`r if(ls_rmd$combinedP<1){str_c(" The significance (p-value) of observing the identified crosstalk by chance is ",as.character(ls_rmd$combinedP),", as estimated by a degree-preserving node permutation test. ")}` Also provided is an editable PDF file for download.
+
+
+```{r}
+hlink_pdf <- oAuxEmbed(ls_rmd$pdf_crosstalk, link.text="Download PDF")
+```
+<div class="text-right">`r hlink_pdf`</div>
+
+```{r crosstalk, fig.cap="The crosstalk between pathways. Genes/nodes are color-coded by input gene scores, while interactions/edges are defined by KEGG pathways.", fig.width=6, fig.height=6, echo=FALSE, eval=T, fig.align="center",out.width="50%"}
+library(png)
+library(grid)
+#filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'dTarget_crosstalk.png')
+filename <- ls_rmd$png_crosstalk
+img <- readPNG(filename)
+grid.raster(img)
+```
+
+<hr>
+
+> **An interactive table** of pathway crosstalk genes, with the column `Scores` for input gene scores. `Genes` are cross-referenced and hyperlinked to [GeneCards](https://www.genecards.org).
+
+```{r}
+#filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'dTarget_crosstalk.xlsx')
+filename <- ls_rmd$xlsx_crosstalk
+
+message(sprintf("'%s' '%s' (%s) ...", filename, getwd(), as.character(Sys.time())), appendLF=TRUE)
+
+tb <- openxlsx::read.xlsx(filename) %>% as_tibble() %>% mutate(Genes=sprintf("<a href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=%s' target='%s''>%s</a>", name, name, name)) %>% transmute(Genes, Scores=signif(score,digits=4), Description=description)
+
+tb %>% DT::datatable(options=list(pageLength=5,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```
