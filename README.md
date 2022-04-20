@@ -82,9 +82,7 @@ rmarkdown::render(YOUR_RMD_FILE, bookdown::html_document2(number_sections=F, the
 
 Assume you place `pier_app` under your `home` directory
 
->
 ```ruby
-# assume the folder 'pier_app' under your home directory
 cd ~/pier_app
 morbo -l 'http://*:80/' script/pier_app
 ```
