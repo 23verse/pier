@@ -18,11 +18,10 @@
 
 ## @ Installation
 
-Assume you have a `ROOT (sudo)` privilege on Ubuntu
+Assume you have a `ROOT (sudo)` privilege on `Ubuntu`.
 
 ### 1. Install Mojolicious and other perl modules
 
->
 ```ruby
 sudo su
 # here enter your password
@@ -62,7 +61,6 @@ BiocManager::install(c('Pi','rmarkdow','bookdown'), dependencies=T)
 
 ### 3. Install pandoc
 
->
 ```ruby
 sudo su
 # here enter your password
