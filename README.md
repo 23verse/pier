@@ -25,6 +25,7 @@ Assume you have a `ROOT (sudo)` privilege on `Ubuntu`
 ```ruby
 sudo su
 # here enter your password
+
 curl -L cpanmin.us | perl - Mojolicious
 perl -e "use Mojolicious::Plugin::PODRenderer"
 perl -MCPAN -e "install Mojolicious::Plugin::PODRenderer"
@@ -34,7 +35,7 @@ perl -MCPAN -e "install Mojo::Base"
 perl -MCPAN -e "install LWP::Simple"
 perl -MCPAN -e "install JSON::Parse"
 perl -MCPAN -e "install local::lib"
-perl -MCPAN -Mlocal::lib -e 'install JSON::Parse'
+perl -MCPAN -Mlocal::lib -e "install JSON::Parse"
 ```
 
 ### 2. Install R and packages
@@ -56,7 +57,7 @@ R # start R
 # install R packages
 install.packages("BiocManager")
 BiocManager::install()
-BiocManager::install(c('Pi','rmarkdow','bookdown'), dependencies=T)
+BiocManager::install(c("Pi","rmarkdow","bookdown"), dependencies=T)
 ```
 
 ### 3. Install pandoc
