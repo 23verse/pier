@@ -1,4 +1,4 @@
-# [The source codes behind the PiER](https://github.com/23verse/pier)
+# [Source codes behind the PiER](https://github.com/23verse/pier)
 
 ## @ Overview
 
@@ -18,7 +18,7 @@
 
 ## @ Installation
 
-Assume you have a `ROOT (sudo)` privilege on `Ubuntu`.
+Assume you have a `ROOT (sudo)` privilege on `Ubuntu`
 
 ### 1. Install Mojolicious and other perl modules
 
@@ -79,8 +79,14 @@ rmarkdown::render(YOUR_RMD_FILE, bookdown::html_document2(number_sections=F, the
 
 ## @ Deployment
 
-> morbo -l 'http://*:80/' script/pier_app
+Assume you place `pier_app` under your `home` directory
 
+>
+```ruby
+# assume the folder 'pier_app' under your home directory
+cd ~/pier_app
+morbo -l 'http://*:80/' script/pier_app
+```
 
 ## @ Contact
 
