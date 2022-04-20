@@ -38,10 +38,8 @@ perl -MCPAN -e "install local::lib"
 perl -MCPAN -Mlocal::lib -e 'install JSON::Parse'
 ```
 
-
 ### 2. Install R and packages
 
->
 ```ruby
 sudo su
 # here enter your password
