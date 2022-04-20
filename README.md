@@ -39,12 +39,14 @@ perl -MCPAN -Mlocal::lib -e 'install JSON::Parse'
 ```
 
 
-### 2. Install R and bioconductor packages
+### 2. Install R and packages
 
 >
 ```ruby
 sudo su
 # here enter your password
+
+# install R
 wget http://www.stats.bris.ac.uk/R/src/base/R-4/R-4.1.3.tar.gz
 tar xvfz R-4.1.3.tar.gz
 cd ~/R-4.1.3
@@ -54,10 +56,10 @@ make check
 make install
 R # start R
 
+# install R packages
 install.packages("BiocManager")
 BiocManager::install()
 BiocManager::install(c('Pi','rmarkdow','bookdown'), dependencies=T)
-library(Pi)
 ```
 
 ### 3. Install pandoc
@@ -66,9 +68,12 @@ library(Pi)
 ```ruby
 sudo su
 # here enter your password
+
+# install pandoc
 wget https://github.com/jgm/pandoc/releases/download/2.17.1.1/pandoc-2.17.1.1-linux-amd64.tar.gz
 tar xvzf pandoc-2.17.1.1-linux-amd64.tar.gz --strip-components 1 -C /usr/local/
 
+# use pandoc to render R markdown
 R
 rmarkdown::pandoc_available()
 Sys.setenv(RSTUDIO_PANDOC="/usr/local/bin")
