@@ -1,10 +1,12 @@
 # The source codes behind the PiER
 
-## @ Introduction
+## @ Overview
 
-> The [PiER](http://www.genetictargets.com) is web-based facilities that support ab initio and real-time genetic target prioritisation through integrative use of human disease genetics, functional genomics and protein interactions. 
+> The [PiER](http://www.genetictargets.com) is web-based facilities that support ab initio and real-time genetic target prioritisation through integrative use of human disease genetics, functional genomics and protein interactions. By design, the PiER features two facilities: `elementary` and `combinatory`.
 
->  By design, the PiER features two facilities: elementary and combinatory. The elementary facility is designed to perform specific tasks, including three online tools: `eV2CG`, utilising functional genomics to link disease-associated variants (particularly at the non-coding genome) to core genes likely responsible for genetic associations; `eCG2PG`, using knowledge of protein interactions to ‘network’ core genes and additional peripheral genes, producing a ranked list of core and peripheral genes; and `eCrosstalk`, exploiting the information of pathway-derived interactions to identify highly-ranked genes mediating the crosstalk between molecular pathways. Each of elementary tasks giving results is sequentially piped to the next one. By chaining together elementary tasks, the combinatory facility automates genetics-led and network-based integrative prioritisation for genetic targets at the gene level (`cTGene`) and at the crosstalk level (`cTCrosstalk`). 
+> The elementary facility is designed to perform specific tasks, including three online tools: [eV2CG](http://www.genetictargets.com/e/V2CG), utilising functional genomics to link disease-associated variants (particularly at the non-coding genome) to core genes likely responsible for genetic associations; [eCG2PG](http://www.genetictargets.com/e/CG2PG), using knowledge of protein interactions to ‘network’ core genes and additional peripheral genes, producing a ranked list of core and peripheral genes; and [eCrosstalk](http://www.genetictargets.com/e/Crosstalk), exploiting the information of pathway-derived interactions to identify highly-ranked genes mediating the crosstalk between molecular pathways. Each of elementary tasks giving results is sequentially piped to the next one. 
+
+> By chaining together elementary tasks, the combinatory facility automates genetics-led and network-based integrative prioritisation for genetic targets at the gene level ([cTGene](http://www.genetictargets.com/c/TGene)) and at the crosstalk level ([cTCrosstalk](http://www.genetictargets.com/c/TCrosstalk)). 
 
 >  A tutorial-like booklet, made available [here](http://www.genetictargets.com/PiERbooklet/index.html), describes step-by-step instructions on how to use.
 
