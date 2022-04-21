@@ -148,7 +148,7 @@ hlink_pdf <- oAuxEmbed(ls_rmd$pdf_crosstalk, link.text="Download PDF")
 ```
 <div class="text-right">`r hlink_pdf`</div>
 
-```{r crosstalk, fig.cap="The crosstalk between pathways. Genes/nodes are color-coded by priority rating and labelled in the form of `rating@rank`, while interactions/edges are defined by KEGG pathways.", fig.width=6, fig.height=6, echo=FALSE, eval=T, fig.align="center",out.width="60%"}
+```{r crosstalk, fig.cap="The crosstalk between pathways. Genes/nodes are color-coded by priority rating and labelled in the form of `rating®rank`, while interactions/edges are defined by KEGG pathways.", fig.width=6, fig.height=6, echo=FALSE, eval=T, fig.align="center",out.width="60%"}
 library(png)
 library(grid)
 #filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'dTarget_crosstalk.png')
@@ -206,7 +206,7 @@ grid.raster(img)
 
 <hr>
 
-> **An interactive table** of crosstalk genes (the column `Crosstalk genes`), disease indications (the column `Disease indications`), approved drugs and mechanisms (the column `Approved drugs (mechanisms of action)`), and drug index (the column `Index`) shown above within the dot plot. The crosstalk genes are cross-referenced and hyperlinked to [GeneCards](https://www.genecards.org).
+> **An interactive table** of crosstalk genes (the column `Crosstalk genes`), disease indications (the column `Disease indications`), approved drugs and mechanisms (the column `Approved drugs [mechanisms of action]`), and drug index (the column `Index`) shown above within the dot plot. The crosstalk genes are cross-referenced and hyperlinked to [GeneCards](https://www.genecards.org).
 
 ```{r}
 #filename <- str_c('/Users/hfang/Sites/XGR/PiER-site/app/examples/', 'Crosstalk.approved.xlsx')
