@@ -4,6 +4,8 @@ use Mojo::Base 'Mojolicious::Controller';
 #use JSON;
 use JSON::Parse;
 use LWP::Simple;
+use POSIX qw(strftime);
+
 
 # Render template "index.html.ep"
 # Render template "demo.html.ep"
@@ -11,8 +13,6 @@ sub index {
 	my $c = shift;
   	$c->render();
 }
-
-
 
 # Render template "cTCrosstalk.html.ep"
 sub PiER_cTCrosstalk_default {
@@ -525,6 +525,9 @@ if(-e $rscript_filename){
 sub PiER_cTCrosstalk {
   	my $c = shift;
 	
+	my $ip = $c->tx->remote_address;
+	print STDERR "IP address: $ip\n";
+	
 	if($c->req->is_limit_exceeded){
 		return $c->render(status => 400, json => { message => 'File is too big.' });
 	}
@@ -557,13 +560,18 @@ sub PiER_cTCrosstalk {
 	my $ajax_manhattan_pdf_file='';
   	
   	if(defined($snplist)){
-		my $tmpFolder = $PIER_app::Controller::Utils::tmpFolder;
-		my $rand_flag = int rand 99999999;
-		my $rand_file = $network.'.'.$rand_flag;
-		my $input_filename=$tmpFolder.'/'.'data.SNPs.'.$rand_file.'.txt';
-		my $output_filename=$tmpFolder.'/'.'cTCrosstalk.SNPs.'.$rand_file.'.txt';
-		my $rscript_filename=$tmpFolder.'/'.'cTCrosstalk.SNPs.'.$rand_file.'.r';
-	
+		my $tmpFolder = $PIER_app::Controller::Utils::tmpFolder; # public/tmp
+		
+		# 14 digits: year+month+day+hour+minute+second
+		my $datestring = strftime "%Y%m%d%H%M%S", localtime;
+		# 2 randomly generated digits
+		my $rand_number = int rand 99;
+		my $digit16 =$datestring.$rand_number."_".$ip;
+
+		my $input_filename=$tmpFolder.'/'.'data.SNPs.'.$digit16.'.txt';
+		my $output_filename=$tmpFolder.'/'.'cTCrosstalk.SNPs.'.$digit16.'.txt';
+		my $rscript_filename=$tmpFolder.'/'.'cTCrosstalk.SNPs.'.$digit16.'.r';
+
 		my $my_input;
 		my $line_counts=0;
 		foreach my $line (split(/\r\n|\n/, $snplist)) {
@@ -798,7 +806,7 @@ R_pipeline <- function (input.file="", output.file="", population="", distance.m
 		
 		output_dir <- gsub("cTCrosstalk.*", "", output.file, perl=T)
 		
-		## rmarkdown
+		## rmarkdown (all information stored in the variable "ls_rmd")
 		if(file.exists("/usr/local/bin/pandoc")){
 			Sys.setenv(RSTUDIO_PANDOC="/usr/local/bin")
 		}else if(file.exists("/home/hfang/.local/bin/pandoc")){
@@ -889,16 +897,26 @@ if(-e $rscript_filename and -e $input_filename){
 				print STDERR "_manhattan.pdf locates at $ajax_manhattan_pdf_file\n";
 			}
 			
-			#############
+			##########################
 			### for RMD_cTCrosstalk.html
-			$tmp_file=$output_filename;
-			$tmp_file=~s/cTCrosstalk.*//g;
-			$tmp_file=$tmp_file."RMD_cTCrosstalk.html";
+			##########################
+			$tmp_file=$tmpFolder."/"."RMD_cTCrosstalk.html";
+			#public/tmp/RMD_cTCrosstalk.html	
+			print STDERR "RMD_cTCrosstalk (local & original) locates at $tmp_file\n";
+			$ajax_rmd_html_file=$tmpFolder."/".$digit16."_RMD_cTCrosstalk.html";
+			#public/tmp/digit16_RMD_cTCrosstalk.html
+			print STDERR "RMD_cTCrosstalk (local & new) locates at $ajax_rmd_html_file\n";
 			if(-e $tmp_file){
-				$ajax_rmd_html_file=$tmp_file;
+				# do replacing
+    			$command="mv $tmp_file $ajax_rmd_html_file";
+				if(system($command)==1){
+					print STDERR "Cannot execute: $command\n";
+				}
 				$ajax_rmd_html_file=~s/^public//g;
-				print STDERR "RMD_cTCrosstalk locates at $ajax_rmd_html_file\n";
+				#/tmp/digit16_RMD_cTCrosstalk.html
+				print STDERR "RMD_cTCrosstalk (server) locates at $ajax_rmd_html_file\n";
 			}
+
 		}
     }
 }else{
@@ -935,6 +953,9 @@ if(-e $rscript_filename and -e $input_filename){
 sub PiER_cTGene {
   	my $c = shift;
 	
+	my $ip = $c->tx->remote_address;
+	print STDERR "IP address: $ip\n";
+	
 	if($c->req->is_limit_exceeded){
 		return $c->render(status => 400, json => { message => 'File is too big.' });
 	}
@@ -963,12 +984,17 @@ sub PiER_cTGene {
 	my $ajax_manhattan_pdf_file='';
   	
   	if(defined($snplist)){
-		my $tmpFolder = $PIER_app::Controller::Utils::tmpFolder;
-		my $rand_flag = int rand 99999999;
-		my $rand_file = $network.'.'.$rand_flag;
-		my $input_filename=$tmpFolder.'/'.'data.SNPs.'.$rand_file.'.txt';
-		my $output_filename=$tmpFolder.'/'.'cTGene.SNPs.'.$rand_file.'.txt';
-		my $rscript_filename=$tmpFolder.'/'.'cTGene.SNPs.'.$rand_file.'.r';
+		my $tmpFolder = $PIER_app::Controller::Utils::tmpFolder; # public/tmp
+		
+		# 14 digits: year+month+day+hour+minute+second
+		my $datestring = strftime "%Y%m%d%H%M%S", localtime;
+		# 2 randomly generated digits
+		my $rand_number = int rand 99;
+		my $digit16 =$datestring.$rand_number."_".$ip;
+		
+		my $input_filename=$tmpFolder.'/'.'data.SNPs.'.$digit16.'.txt';
+		my $output_filename=$tmpFolder.'/'.'cTGene.SNPs.'.$digit16.'.txt';
+		my $rscript_filename=$tmpFolder.'/'.'cTGene.SNPs.'.$digit16.'.r';
 	
 		my $my_input;
 		my $line_counts=0;
@@ -1193,16 +1219,26 @@ if(-e $rscript_filename and -e $input_filename){
 				print STDERR "_manhattan.pdf locates at $ajax_manhattan_pdf_file\n";
 			}
 			
-			#############
+			##########################
 			### for RMD_cTGene.html
-			$tmp_file=$output_filename;
-			$tmp_file=~s/cTGene.*//g;
-			$tmp_file=$tmp_file."RMD_cTGene.html";
+			##########################
+			$tmp_file=$tmpFolder."/"."RMD_cTGene.html";
+			#public/tmp/RMD_cTGene.html	
+			print STDERR "RMD_cTGene (local & original) locates at $tmp_file\n";
+			$ajax_rmd_html_file=$tmpFolder."/".$digit16."_RMD_cTGene.html";
+			#public/tmp/digit16_RMD_cTGene.html
+			print STDERR "RMD_cTGene (local & new) locates at $ajax_rmd_html_file\n";
 			if(-e $tmp_file){
-				$ajax_rmd_html_file=$tmp_file;
+				# do replacing
+    			$command="mv $tmp_file $ajax_rmd_html_file";
+				if(system($command)==1){
+					print STDERR "Cannot execute: $command\n";
+				}
 				$ajax_rmd_html_file=~s/^public//g;
-				print STDERR "RMD_cTGene locates at $ajax_rmd_html_file\n";
+				#/tmp/digit16_RMD_cTGene.html
+				print STDERR "RMD_cTGene (server) locates at $ajax_rmd_html_file\n";
 			}
+			
 		}
     }
 }else{
@@ -1239,6 +1275,9 @@ if(-e $rscript_filename and -e $input_filename){
 sub PiER_eV2CG {
   	my $c = shift;
 	
+	my $ip = $c->tx->remote_address;
+	print STDERR "IP address: $ip\n";
+	
 	if($c->req->is_limit_exceeded){
 		return $c->render(status => 400, json => { message => 'File is too big.' });
 	}
@@ -1266,12 +1305,17 @@ sub PiER_eV2CG {
 	my $ajax_manhattan_pdf_file='';
   	
   	if(defined($snplist)){
-		my $tmpFolder = $PIER_app::Controller::Utils::tmpFolder;
-		my $rand_flag = int rand 99999999;
-		my $rand_file = $network.'.'.$rand_flag;
-		my $input_filename=$tmpFolder.'/'.'data.SNPs.'.$rand_file.'.txt';
-		my $output_filename=$tmpFolder.'/'.'eV2CG.SNPs.'.$rand_file.'.txt';
-		my $rscript_filename=$tmpFolder.'/'.'eV2CG.SNPs.'.$rand_file.'.r';
+		my $tmpFolder = $PIER_app::Controller::Utils::tmpFolder; # public/tmp
+		
+		# 14 digits: year+month+day+hour+minute+second
+		my $datestring = strftime "%Y%m%d%H%M%S", localtime;
+		# 2 randomly generated digits
+		my $rand_number = int rand 99;
+		my $digit16 =$datestring.$rand_number."_".$ip;
+
+		my $input_filename=$tmpFolder.'/'.'data.SNPs.'.$digit16.'.txt';
+		my $output_filename=$tmpFolder.'/'.'eV2CG.SNPs.'.$digit16.'.txt';
+		my $rscript_filename=$tmpFolder.'/'.'eV2CG.SNPs.'.$digit16.'.r';
 	
 		my $my_input="";
 		my $line_counts=0;
@@ -1481,16 +1525,26 @@ if(-e $rscript_filename and -e $input_filename){
 				print STDERR "TXT locates at $ajax_txt_file\n";
 			}
 			
-			#############
+			##########################
 			### for RMD_eV2CG.html
-			$tmp_file=$output_filename;
-			$tmp_file=~s/eV2CG.*//g;
-			$tmp_file=$tmp_file."RMD_eV2CG.html";
+			##########################
+			$tmp_file=$tmpFolder."/"."RMD_eV2CG.html";
+			#public/tmp/RMD_eV2CG.html	
+			print STDERR "RMD_eV2CG (local & original) locates at $tmp_file\n";
+			$ajax_rmd_html_file=$tmpFolder."/".$digit16."_RMD_eV2CG.html";
+			#public/tmp/digit16_RMD_eV2CG.html
+			print STDERR "RMD_eV2CG (local & new) locates at $ajax_rmd_html_file\n";
 			if(-e $tmp_file){
-				$ajax_rmd_html_file=$tmp_file;
+				# do replacing
+    			$command="mv $tmp_file $ajax_rmd_html_file";
+				if(system($command)==1){
+					print STDERR "Cannot execute: $command\n";
+				}
 				$ajax_rmd_html_file=~s/^public//g;
-				print STDERR "RMD_eV2CG locates at $ajax_rmd_html_file\n";
+				#/tmp/digit16_RMD_eV2CG.html
+				print STDERR "RMD_eV2CG (server) locates at $ajax_rmd_html_file\n";
 			}
+			
 		}
     }
 }else{
@@ -1519,6 +1573,9 @@ if(-e $rscript_filename and -e $input_filename){
 sub PiER_eCG2PG {
   	my $c = shift;
 	
+	my $ip = $c->tx->remote_address;
+	print STDERR "IP address: $ip\n";
+	
 	if($c->req->is_limit_exceeded){
 		return $c->render(status => 400, json => { message => 'File is too big.' });
 	}
@@ -1541,12 +1598,17 @@ sub PiER_eCG2PG {
 	my $ajax_manhattan_pdf_file='';
   	
   	if(defined($genelist)){
-		my $tmpFolder = $PIER_app::Controller::Utils::tmpFolder;
-		my $rand_flag = int rand 99999999;
-		my $rand_file = $network.'.'.$rand_flag;
-		my $input_filename=$tmpFolder.'/'.'data.Genes.'.$rand_file.'.txt';
-		my $output_filename=$tmpFolder.'/'.'eCG2PG.Genes.'.$rand_file.'.txt';
-		my $rscript_filename=$tmpFolder.'/'.'eCG2PG.Genes.'.$rand_file.'.r';
+		my $tmpFolder = $PIER_app::Controller::Utils::tmpFolder; # public/tmp
+		
+		# 14 digits: year+month+day+hour+minute+second
+		my $datestring = strftime "%Y%m%d%H%M%S", localtime;
+		# 2 randomly generated digits
+		my $rand_number = int rand 99;
+		my $digit16 =$datestring.$rand_number."_".$ip;
+		
+		my $input_filename=$tmpFolder.'/'.'data.Genes.'.$digit16.'.txt';
+		my $output_filename=$tmpFolder.'/'.'eCG2PG.Genes.'.$digit16.'.txt';
+		my $rscript_filename=$tmpFolder.'/'.'eCG2PG.Genes.'.$digit16.'.r';
 	
 		my $my_input;
 		my $line_counts=0;
@@ -1719,16 +1781,26 @@ if(-e $rscript_filename and -e $input_filename){
 				print STDERR "TXT locates at $ajax_txt_file\n";
 			}
 			
-			#############
+			##########################
 			### for RMD_eCG2PG.html
-			$tmp_file=$output_filename;
-			$tmp_file=~s/eCG2PG.*//g;
-			$tmp_file=$tmp_file."RMD_eCG2PG.html";
+			##########################
+			$tmp_file=$tmpFolder."/"."RMD_eCG2PG.html";
+			#public/tmp/RMD_eCG2PG.html	
+			print STDERR "RMD_eCG2PG (local & original) locates at $tmp_file\n";
+			$ajax_rmd_html_file=$tmpFolder."/".$digit16."_RMD_eCG2PG.html";
+			#public/tmp/digit16_RMD_eCG2PG.html
+			print STDERR "RMD_eCG2PG (local & new) locates at $ajax_rmd_html_file\n";
 			if(-e $tmp_file){
-				$ajax_rmd_html_file=$tmp_file;
+				# do replacing
+    			$command="mv $tmp_file $ajax_rmd_html_file";
+				if(system($command)==1){
+					print STDERR "Cannot execute: $command\n";
+				}
 				$ajax_rmd_html_file=~s/^public//g;
-				print STDERR "RMD_eCG2PG locates at $ajax_rmd_html_file\n";
+				#/tmp/digit16_RMD_eCG2PG.html
+				print STDERR "RMD_eCG2PG (server) locates at $ajax_rmd_html_file\n";
 			}
+			
 		}
     }
 }else{
@@ -1756,6 +1828,9 @@ if(-e $rscript_filename and -e $input_filename){
 sub PiER_eCrosstalk {
   	my $c = shift;
 	
+	my $ip = $c->tx->remote_address;
+	print STDERR "IP address: $ip\n";
+	
 	if($c->req->is_limit_exceeded){
 		return $c->render(status => 400, json => { message => 'File is too big.' });
 	}
@@ -1777,12 +1852,17 @@ sub PiER_eCrosstalk {
 	my $ajax_manhattan_pdf_file='';
   	
   	if(defined($genelist)){
-		my $tmpFolder = $PIER_app::Controller::Utils::tmpFolder;
-		my $rand_flag = int rand 99999999;
-		my $rand_file = $rand_flag;
-		my $input_filename=$tmpFolder.'/'.'data.Genes.'.$rand_file.'.txt';
-		my $output_filename=$tmpFolder.'/'.'eCrosstalk.Genes.'.$rand_file.'.txt';
-		my $rscript_filename=$tmpFolder.'/'.'eCrosstalk.Genes.'.$rand_file.'.r';
+		my $tmpFolder = $PIER_app::Controller::Utils::tmpFolder; # public/tmp
+		
+		# 14 digits: year+month+day+hour+minute+second
+		my $datestring = strftime "%Y%m%d%H%M%S", localtime;
+		# 2 randomly generated digits
+		my $rand_number = int rand 99;
+		my $digit16 =$datestring.$rand_number."_".$ip;
+		
+		my $input_filename=$tmpFolder.'/'.'data.Genes.'.$digit16.'.txt';
+		my $output_filename=$tmpFolder.'/'.'eCrosstalk.Genes.'.$digit16.'.txt';
+		my $rscript_filename=$tmpFolder.'/'.'eCrosstalk.Genes.'.$digit16.'.r';
 	
 		my $my_input;
 		my $line_counts=0;
@@ -1963,16 +2043,26 @@ if(-e $rscript_filename and -e $input_filename){
 				print STDERR "TXT locates at $ajax_txt_file\n";
 			}
 			
-			#############
+			##########################
 			### for RMD_eCrosstalk.html
-			$tmp_file=$output_filename;
-			$tmp_file=~s/eCrosstalk.*//g;
-			$tmp_file=$tmp_file."RMD_eCrosstalk.html";
+			##########################
+			$tmp_file=$tmpFolder."/"."RMD_eCrosstalk.html";
+			#public/tmp/RMD_eCrosstalk.html	
+			print STDERR "RMD_eCrosstalk (local & original) locates at $tmp_file\n";
+			$ajax_rmd_html_file=$tmpFolder."/".$digit16."_RMD_eCrosstalk.html";
+			#public/tmp/digit16_RMD_eCrosstalk.html
+			print STDERR "RMD_eCrosstalk (local & new) locates at $ajax_rmd_html_file\n";
 			if(-e $tmp_file){
-				$ajax_rmd_html_file=$tmp_file;
+				# do replacing
+    			$command="mv $tmp_file $ajax_rmd_html_file";
+				if(system($command)==1){
+					print STDERR "Cannot execute: $command\n";
+				}
 				$ajax_rmd_html_file=~s/^public//g;
-				print STDERR "RMD_eCrosstalk locates at $ajax_rmd_html_file\n";
+				#/tmp/digit16_RMD_eCrosstalk.html
+				print STDERR "RMD_eCrosstalk (server) locates at $ajax_rmd_html_file\n";
 			}
+			
 		}
     }
 }else{

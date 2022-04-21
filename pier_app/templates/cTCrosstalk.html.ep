@@ -49,21 +49,31 @@
 my $info='
 <h5>Input</h5>
 <ul>
-<li>(<b>Step 1</b>) a list of user-defined SNPs (1st column for dbSNP rsIDs, 2nd for significance info). <a href="/app/examples/data_inflam.xlsx" download="/app/examples/data_inflam.xlsx" target="/app/examples/data_inflam.xlsx"><i class="fa fa-cloud-download fa" aria-hidden="true"></i>&nbspExample Input</a>, shared genetic variants identified from cross-disease genome-wide association studies in inflammatory disorders (Nature Genetics 2016; PMID26974007).
+<li>(<b>Step 1</b>) a list of user-input SNPs, with 1st column for dbSNP rsIDs and 2nd column for significance info (p-values between 0 and 1). The error message will be displayed if the input is invalid. <a href="/app/examples/data_inflam.xlsx" download="/app/examples/data_inflam.xlsx" target="/app/examples/data_inflam.xlsx"><i class="fa fa-cloud-download fa" aria-hidden="true"></i>&nbspExample Input</a>, shared genetic variants identified from cross-disease genome-wide association studies in inflammatory disorders (Nature Genetics 2016; PMID26974007).
 </ul>
 
 <h5>Mechanism</h5>
 <ul>
-<li>(<b>Step 2</b>) includes SNPs in Linkage Disequilibrium (LD).
-<li>(<b>Step 3</b>) uses functional genomic datasets (including genomic proximity, quantitative trait locus (QTL) and promoter capture Hi-C data) to identify core genes.
-<li>(<b>Step 4</b>) networks core genes to each other and to additional (peripheral) genes based on the knowledge of protein interactions, generating a ranked list of core and peripheral genes.
-<li>(<b>Step 5</b>) identifies the subnetwork of highly ranked genes that mediate pathway crosstalk.
-<li>(<b>More controls</b>) fine-tunes parameters involved in steps described above.
+<li>(<b>Step 2</b>) includes SNPs in Linkage Disequilibrium (LD). By default, input SNPs with a typical threshold (p-value < 5e−8) are considered, and additional SNPs in linkage disequilibrium (R2 < 0.8) can be also included according to the European population.
+<li>(<b>Step 3</b>) uses functional genomic datasets, including genomic proximity, quantitative trait locus (QTL) and promoter capture Hi-C (PCHi-C), to identify core genes.
+<li>(<b>Step 4</b>) networks core genes with each other and with additional (peripheral) genes based on the knowledge of protein interactions, generating a ranked list of core and peripheral genes. It is achieved using the random walk with restart (RWW) algorithm. By default, the restarting probability of 0.7 is set, empirically optimised for immune-mediated diseases; selecting a value smaller than 0.6 is not recommended as there is a higher chance to expect low performance.
+<li>(<b>Step 5</b>) identifies the subnetwork of highly-ranked genes that mediate the crosstalk between molecular pathways. The significance (p-value) of observing the identified crosstalk by chance is estimated by a degree-preserving node permutation test.
+<li>(<b>More Controls</b>) fine-tunes parameters involved in steps described above.
 </ul>
 
 <h5>Output</h5>
 <ul>
-<li>(<a href="/app/examples/_tmp_RMD_cTCrosstalk.html" download="/app/examples/_tmp_RMD_cTCrosstalk.html" target="/app/examples/_tmp_RMD_cTCrosstalk.html"><i class="fa fa-cloud-download fa" aria-hidden="true"></i>&nbspExample Output</a>) includes an interactive table for targets at the gene level, a manhattan plot (illustrating priority rating for target genes color-coded by chromosomes), a dot plot and an interactive table for target pathways, an interactive table for pathway crosstalk genes, and a network visualisation (illustrating the crosstalk between pathways).
+<li>(<a href="/app/examples/_tmp_RMD_cTCrosstalk.html" download="/app/examples/_tmp_RMD_cTCrosstalk.html" target="/app/examples/_tmp_RMD_cTCrosstalk.html"><i class="fa fa-cloud-download fa" aria-hidden="true"></i>&nbspExample Output</a>) includes target genes, target pathways, targets at the crosstalk level, and crosstalk-based drug repurposing. A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
+</ul>
+
+<h5>Other useful information</h5>
+<ul>
+<li>At step 1, first prepare the tab-delimited input using Microsoft Excel and then do copying/pasting (the text box is pre-filled with the provided example).
+<li>Since the text box at Step 1 is always pre-filled with the provided example when the interface page is first-visited or refreshed, it is very important to paste your own data every time before clicking the Submit button.
+<li>Currently only one run is allowed for the same machine and the same browser (concurrent client instances are not supported).
+<li>Precaution should be taken when applying to disease areas where e/pQTL and PCHi-C datasets are not directly relevant. 
+<li>Precaution should be also taken using the default parameters empirically optimised for immune-mediated diseases. The users are advised to try different values and decide on the optimal ones, if available, also considering other relevant information for disease under study.
+<li> Please drop <a href="mailto:fh12355@rjh.com.cn"><i class="fa fa-envelope-o"></i></a> for bug reports and enquires. 
 </ul>
 ';
 
@@ -409,7 +419,7 @@ rs1992661	1E-74
 <h5>Error Message: your input at Step 1</h5>
 <ul>
 <li>Please check your input SNP identifiers (<b>dbSNP rsIDs</b>) and p-values (<b>between 0 and 1</b>); otherwise they will be ignored.
-<li>Please paste your own data at Step 1 <strong>every time</strong> before clicking the Submit button. Notably, the text box at Step 1 is always filled with the provided example when the interface page is first-visited or refreshed.
+<li>Please paste your own data at Step 1 <strong>every time</strong> before clicking the Submit button. Notably, the text box at Step 1 is always pre-filled with the provided example when the interface page is first-visited or refreshed.
 </ul>
 
 		</p>

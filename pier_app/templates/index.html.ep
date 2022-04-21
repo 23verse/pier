@@ -39,9 +39,10 @@
     <!-- Projects Row -->
     <div class="row">
         <div class="col-md-12 img-portfolio text-center">
-            <img src="/app/img/PIER.logo.png" height="130px">
+            <!--<img src="/app/img/PIER.logo.png" height="130px">-->
+            <a href="https://clustrmaps.com/site/1bnfe" title="Visit PiER tracker" target="clustrmap PiER"><img src="/app/img/PIER.logo.png" height="130px"></a>
         </div>
-    	
+
     	<br>
     	
     	<div class="text-center">

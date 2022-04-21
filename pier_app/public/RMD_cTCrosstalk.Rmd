@@ -214,7 +214,7 @@ filename <- ls_rmd$xlsx_repurposing
 
 message(sprintf("'%s' '%s' (%s) ...", filename, getwd(), as.character(Sys.time())), appendLF=TRUE)
 
-tb <- openxlsx::read.xlsx(filename) %>% as_tibble() %>% mutate(Genes=sprintf("<a href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=%s' target='%s''>%s</a>", Target, Target, Target)) %>% transmute(`Crosstalk genes`=Genes, `Disease indications`=Disease, `Approved drugs (mechanisms of action)`=Drug, Index=Drug_index)
+tb <- openxlsx::read.xlsx(filename) %>% as_tibble() %>% mutate(Genes=sprintf("<a href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=%s' target='%s''>%s</a>", Target, Target, Target)) %>% transmute(`Crosstalk genes`=Genes, `Disease indications`=Disease, `Approved drugs [mechanisms of action]`=Drug, Index=Drug_index)
 
 tb %>% DT::datatable(options=list(pageLength=5,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
 ```

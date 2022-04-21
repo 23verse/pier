@@ -8,7 +8,7 @@ sub startup {
 	$ENV{MOJO_REVERSE_PROXY} = 1;
 	$self->config(
 		hypnotoad => {
-			listen  => ['http://*:3020'],
+			listen  => ['http://*:80'],
 			workers => 8,
 			keep_alive_timeout => 300,
 			websocket_timeout => 600,

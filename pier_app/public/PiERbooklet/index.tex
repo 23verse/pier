@@ -98,33 +98,33 @@
 \textbf{Motivation}
 \end{quote}
 
-We and others are leading the field of target discovery through developing approaches for genetics-led target prioritisation. Integrative prioritisation for early-stage genetic target discovery has been demonstrated to be cost-effective in promoting the translational use of disease genetic associations, a principle increasingly recognised to reduce drug attrition rate in late-stage clinical trials.
+The field of target discovery has been advanced by genetics-led target prioritisation approaches. Integrative prioritisation for early-stage genetic target discovery has proven cost-effective in promoting the translational use of disease genetic associations, which is increasingly recognised in reducing drug attrition rate in late-stage clinical trials.
 
 \begin{quote}
 \textbf{Design}
 \end{quote}
 
-Building on our well-established algorithm (see \href{https://www.ncbi.nlm.nih.gov/pubmed/31253980}{Nature Genetics 2019}), here I introduce web-based servers/facilities called \texttt{PiER}. The PiER is free and open to all users and there is no login requirement, allowing the users to perform real-time target prioritisation harnessing human disease genetics, functional genomics, and protein interactions.
+Building on the verified Pi approach (see \href{https://www.ncbi.nlm.nih.gov/pubmed/31253980}{Nature Genetics 2019}), here I introduce web-based servers/facilities called \texttt{PiER}. The PiER is free and open to all users and there is no login requirement, allowing the users to perform \texttt{ab\ initio} and \texttt{real-time} target prioritisation harnessing human disease genetics, functional genomics and protein interactions.
 
-By analogy to the piano \href{https://www.piano-keyboard-guide.com/grand-staff.html}{stave}, the PiER consists of five horizontal lines, with three lines representing the elementary facility (\texttt{eV2CG}, \texttt{eCG2PG} and \texttt{eCrosstalk}), each doing specific tasks on their own, and the rest two lines signifying the combinatory facility (\texttt{cTGene} and \texttt{cTCrosstalk}), making the prioritisaton process transparent to follow and easy to use.
+By analogy to the piano \href{https://www.piano-keyboard-guide.com/grand-staff.html}{stave}, the PiER consists of five horizontal lines, with three lines representing the elementary facility (\texttt{eV2CG}, \texttt{eCG2PG} and \texttt{eCrosstalk}), each doing specific tasks on their own, and the rest two lines signifying the combinatory facility (\texttt{cTGene} and \texttt{cTCrosstalk}).
 
 \begin{itemize}
 \item
-  \protect\hyperlink{ev2cg}{eV2CG}, linking variants to core genes; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eV2CG.html}{Sample Output}
+  \protect\hyperlink{ev2cg}{eV2CG}, linking variants to core genes; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eV2CG.html}{Example Output}
 \item
-  \protect\hyperlink{ecg2pg}{eCG2PG}, networking core genes to peripheral genes; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eCG2PG.html}{Sample Output}
+  \protect\hyperlink{ecg2pg}{eCG2PG}, networking core genes to peripheral genes; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eCG2PG.html}{Example Output}
 \item
-  \protect\hyperlink{ecrosstalk}{eCrosstalk}, identifying the crosstalk between pathways; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eCrosstalk.html}{Sample Output}
+  \protect\hyperlink{ecrosstalk}{eCrosstalk}, identifying the crosstalk between pathways; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eCrosstalk.html}{Example Output}
 \item
-  \protect\hyperlink{ctgene}{cTGene}, prioritising targets at the gene level; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_cTGene.html}{Sample Output}
+  \protect\hyperlink{ctgene}{cTGene}, prioritising targets at the gene level; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_cTGene.html}{Example Output}
 \item
-  \protect\hyperlink{ctcrosstalk}{cTCrosstalk}, prioritising targets at the crosstalk level; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_cTCrosstalk.html}{Sample Output}
+  \protect\hyperlink{ctcrosstalk}{cTCrosstalk}, prioritising targets at the crosstalk level; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_cTCrosstalk.html}{Example Output}
 \end{itemize}
 
 \hypertarget{facilities}{%
 \chapter{Facilities}\label{facilities}}
 
-The elementary facility supports three specific tasks, including: (i) \texttt{eV2CG}, utilising functional genomics to link disease-associated variants (including those located at the non-coding genome) to core genes likely responsible for genetic associations; (ii) \texttt{eCG2PG}, using knowledge of protein interactions to `network' core genes to each other and also to additional peripheral genes, producing a ranked list of core and peripheral genes; and (iii) \texttt{eCrosstalk}, exploiting the information of pathway-derived interactions to identify highly ranked genes that mediate the crosstalk between molecular pathways. Through chaining together elementary tasks supported in the elementary facility, the combinatory facility enables the automation of genetics-led and network-based integrative prioritisation for genetic targets at the gene level (\texttt{cTGene}) and also at the crosstalk level (\texttt{cTCrosstalk}). Notably, in addition to target crosstalk, the \texttt{cTCrosstalk} further supports target pathway prioritisation and crosstalk-based drug repurposing analysis (that is, repositioning approved drugs into new disease indications).
+The elementary facility supports three specific tasks, including three online tools: (i) \texttt{eV2CG}, utilising functional genomics to link disease-associated variants (including those located at the non-coding genome) to core genes likely responsible for genetic associations; (ii) \texttt{eCG2PG}, using knowledge of protein interactions to `network' core genes with each other and with additional peripheral genes as well, producing a ranked list of core and peripheral genes; and (iii) \texttt{eCrosstalk}, exploiting the information of pathway-derived interactions to identify highly ranked genes that mediate the crosstalk between molecular pathways. By chaining together elementary tasks supported in the elementary facility, the combinatory facility enables the automation of genetics-led and network-based integrative prioritisation for genetic targets, both at the gene level (\texttt{cTGene}) and at the crosstalk level (\texttt{cTCrosstalk}). Notably, in addition to target crosstalk, the \texttt{cTCrosstalk} further supports target pathway prioritisation and crosstalk-based drug repurposing analysis (that is, repositioning approved drugs from original disease indications into new ones).
 
 \begin{figure}
 
@@ -190,7 +190,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 }
 
-\caption{The landing frontpage of the PiER, featuring two facilities (elementary and combinatory). The elementary facility includes: (i) eV2CG, linking disease associated variants (particularly located at the non-coding genomic region) to (core) genes likely responsible for associations, based on either conformation evidence (that is, promoter-centered chromatin interactions), quantitative trait locus (QTL) mapping (that is, genetic regulation of gene expression or protein abundance), or simply genomic proximity; (ii) eCG2PG, using the knowledge of protein interactions to ‘network’ core genes to each other and to additional (peripheral) genes as well, generating a ranked list of core and peripheral genes; and (iii) eCrosstalk, exploiting the information of well-curated pathway-derived interactions to identify the subnetwork of highly ranked genes that mediate pathway crosstalk. Chaining together elementary functionalities above into pipelines provides the combinatory facility, enabling/automating genetics-led and network-based identification and prioritisation of drug targets: (iv) at the gene level (cTGene); and (v) at the crosstalk level (cTCrosstalk). Also included is the tutorial-like booklet (in a HTML- and PDF-format) of explaining step-by-step instructions.}\label{fig:app-front}
+\caption{The landing frontpage of the PiER, featuring two facilities (elementary and combinatory). The elementary facility includes: (i) eV2CG, linking disease associated variants (particularly located at the non-coding genomic region) to (core) genes likely responsible for associations, based on either conformation evidence (that is, promoter-centered chromatin interactions), quantitative trait locus (QTL) mapping (that is, genetic regulation of gene expression or protein abundance), or simply genomic proximity; (ii) eCG2PG, using the knowledge of protein interactions to ‘network’ core genes to each other and to additional (peripheral) genes as well, generating a ranked list of core and peripheral genes; and (iii) eCrosstalk, exploiting the information of well-curated pathway-derived interactions to identify the subnetwork of highly ranked genes that mediate pathway crosstalk. Chaining together elementary functionalities above into pipelines provides the combinatory facility, enabling/automating genetics-led and network-based identification and prioritisation of drug targets: (iv) at the gene level (cTGene); and (v) at the crosstalk level (cTCrosstalk). Also included is the tutorial-like booklet (in an HTML format) describing step-by-step instructions on how to use.}\label{fig:app-front}
 \end{figure}
 
 \hypertarget{ev2cg}{%
@@ -206,7 +206,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \texttt{Step\ 1}: a list of user-defined SNPs (1st column for dbSNP rsIDs, 2nd for significance info). By default, sample data are shared genetic variants identified from cross-disease genome-wide association studies in inflammatory disorders; see \href{https://www.ncbi.nlm.nih.gov/pubmed/26974007}{Nature Genetics 2016}.
+  \texttt{Step\ 1}: a list of user-input SNPs, with 1st column for dbSNP rsIDs and 2nd column for significance info (p-values between 0 and 1). The error message will be displayed if the input is invalid. Example input data are shared genetic variants identified from cross-disease genome-wide association studies in inflammatory disorders; see \href{https://www.ncbi.nlm.nih.gov/pubmed/26974007}{Nature Genetics 2016}.
 \end{itemize}
 
 \begin{quote}
@@ -215,11 +215,11 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 \begin{itemize}
 \item
-  \texttt{Step\ 2}: includes SNPs in Linkage Disequilibrium (LD).
+  \texttt{Step\ 2}: includes SNPs in Linkage Disequilibrium (LD). By default, input SNPs with a typical threshold (p-value \textless{} 5e−8) are considered, and additional SNPs in linkage disequilibrium (R2 \textless{} 0.8) can be also included according to the European population.
 \item
-  \texttt{Step\ 3}: uses genomic proximity, quantitative trait locus (QTL), or promoter capture Hi-C data to identify core genes.
+  \texttt{Step\ 3}: uses genomic proximity, quantitative trait locus (QTL), or promoter capture Hi-C (PCHi-C) to identify core genes.
 \item
-  \texttt{More\ controls}: fine-tunes parameters involved in steps described above.
+  \texttt{More\ Controls}: fine-tunes parameters involved in steps described above.
 \end{itemize}
 
 \begin{quote}
@@ -229,7 +229,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eV2CG.html}{Sample Output} includes an interactive table for core genes, and a manhattan plot (illustrating scored core genes color-coded by chromosomes).
+  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eV2CG.html}{Example Output} includes two interactive tables for core genes and evidence used, and a manhattan plot (illustrating scored core genes color-coded by chromosomes). A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
 \end{itemize}
 
 \begin{figure}
@@ -248,7 +248,9 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \item
   Under the tab \texttt{Output:\ core\ genes}, \texttt{Manhattan\ plot} illustrates scored core genes that are color-coded by chromosomes. Also provided is the downloadable PDF file.
 \item
-  Under the tab \texttt{Output:\ core\ genes}, \texttt{An\ interactive\ table} lists core genes linked from the input SNPs, with scores quantifying the level of genes responsible for genetic associations (capped at 100). Genes are cross-referenced and linked out to GeneCards.
+  Under the tab \texttt{Output:\ core\ genes}, \texttt{An\ interactive\ table} lists core genes linked from the input SNPs, with scores quantifying the level of genes responsible for genetic associations (capped at 100). Genes are cross-referenced and hyperlinked to GeneCards. Also provided is the column Evidence used to define core genes.
+\item
+  Under the tab \texttt{Output:\ core\ genes}, \texttt{Evidence\ table} for core genes, showing which SNPs (see the column \texttt{SNPs}) are used to define core genes (the column \texttt{Core\ genes}) based on which evidence (see the column \texttt{Evidence}). The column \texttt{SNP\ type} tells the SNP type (either \texttt{Input} for use-input SNPs or \texttt{LD} for LD SNPs). Notably, the column \texttt{Evidence} details datasets used: the prefix \texttt{Proximity\_} indicative of SNPs in the proximity, the prefix \texttt{PCHiC\_} for PCHi-C datasets, and the prefix \texttt{QTL\_} for e/pQTL datasets.
 \end{itemize}
 
 \begin{figure}
@@ -257,7 +259,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 }
 
-\caption{Interactive results for eV2CG. The user input data are also returned for the exploration.}\label{fig:eV2CG-results}
+\caption{Interactive results for eV2CG. The user-input data are also returned for the exploration.}\label{fig:eV2CG-results}
 \end{figure}
 
 \hypertarget{ecg2pg}{%
@@ -273,7 +275,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \texttt{Step\ 1}: a list of user-defined core genes (1st column for gene symbols, 2nd for weights), such as results from eV2CG above.
+  \texttt{Step\ 1}: a list of user-defined core genes, with 1st column for gene symbols, 2nd columns for weights (positive values), such as results from \texttt{eV2CG} above. The error message will be displayed if the input is invalid.
 \end{itemize}
 
 \begin{quote}
@@ -282,9 +284,9 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 \begin{itemize}
 \item
-  \texttt{Step\ 2}: networks core genes to each other and to additional (peripheral) genes based on the knowledge of protein interactions, generating a ranked list of core and peripheral genes.
+  \texttt{Step\ 2}: networks core genes with each other and with additional (peripheral) genes based on the knowledge of protein interactions, generating a ranked list of core and peripheral genes. It is achieved using the random walk with restart (RWW) algorithm. By default, the restarting probability of 0.7 is set, empirically optimised for immune-mediated diseases; selecting a value smaller than 0.6 is not recommended as there is a higher chance to expect low performance.
 \item
-  \texttt{More\ controls}: fine-tunes parameters involved in steps described above.
+  \texttt{More\ Controls}: fine-tunes parameters involved in steps described above.
 \end{itemize}
 
 \begin{quote}
@@ -294,7 +296,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eCG2PG.html}{Sample Output} includes an interactive table for core and peripheral genes, and a manhattan plot (illustrating scores for genes color-coded by chromosomes).
+  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eCG2PG.html}{Example Output} includes an interactive table for core and peripheral genes, and a manhattan plot (illustrating scores for genes color-coded by chromosomes). A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
 \end{itemize}
 
 \begin{figure}
@@ -313,7 +315,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \item
   Under the tab \texttt{Output:\ core\ and\ peripheral\ genes}, \texttt{Manhattan\ plot} illustrates affinity scores for genes that are color-coded by chromosomes. Also provided is the downloadable PDF file.
 \item
-  Under the tab \texttt{Output:\ core\ and\ peripheral\ genes}, \texttt{An\ interactive\ table} lists core and peripheral genes, with scores quantifying the affinity to core genes (sum up to 1). Genes are cross-referenced and linked out to GeneCards.
+  Under the tab \texttt{Output:\ core\ and\ peripheral\ genes}, \texttt{An\ interactive\ table} lists core and peripheral genes, with scores quantifying the affinity to core genes (sum up to 1). Genes are cross-referenced and hyperlinked to GeneCards.
 \end{itemize}
 
 \begin{figure}
@@ -322,7 +324,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 }
 
-\caption{Interactive results for eCG2PG. The user input data are also returned for the exploration.}\label{fig:eCG2PG-results}
+\caption{Interactive results for eCG2PG. The user-input data are also returned for the exploration.}\label{fig:eCG2PG-results}
 \end{figure}
 
 \hypertarget{ecrosstalk}{%
@@ -338,7 +340,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \texttt{Step\ 1}: a ranked list of genes (1st column for gene symbols, 2nd for scores), such as results from eCG2PG above.
+  \texttt{Step\ 1}: a ranked list of genes, with 1st column for gene symbols, 2nd columns for scores (positive values), such as results from \texttt{eCG2PG} above. The error message will be displayed if the input is invalid.
 \end{itemize}
 
 \begin{quote}
@@ -348,7 +350,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \texttt{Step\ 2}: identifies the subnetwork of highly ranked genes that mediate pathway crosstalk.
+  \texttt{Step\ 2}: identifies the subnetwork of highly-ranked genes that mediate the crosstalk between molecular pathways. The significance (p-value) of observing the identified crosstalk by chance is estimated by a degree-preserving node permutation test.
 \end{itemize}
 
 \begin{quote}
@@ -358,7 +360,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eCrosstalk.html}{Sample Output} includes an interactive table for pathway crosstalk genes, and a network visualisation (illustrating the crosstalk between pathways).
+  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eCrosstalk.html}{Example Output} includes an interactive table for pathway crosstalk genes, and a network visualisation (illustrating the crosstalk between pathways).
 \end{itemize}
 
 \begin{figure}
@@ -375,9 +377,9 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 \begin{itemize}
 \item
-  Under the tab \texttt{Output:\ pathway\ crosstalk}, \texttt{A\ network\ visualisation} illustrates crosstalk genes color-coded by input scores. Also provided is the downloadable PDF file.
+  Under the tab \texttt{Output:\ pathway\ crosstalk}, \texttt{A\ network\ visualisation} illustrates crosstalk genes color-coded by input scores. The significance (p-value) of observing the identified crosstalk by chance is estimated by a degree-preserving node permutation test. Also provided is the downloadable PDF file.
 \item
-  Under the tab \texttt{Output:\ pathway\ crosstalk}, \texttt{An\ interactive\ table}: lists crosstalk genes together with input scores. Genes are cross-referenced and linked out to GeneCards.
+  Under the tab \texttt{Output:\ pathway\ crosstalk}, \texttt{An\ interactive\ table}: lists crosstalk genes together with input scores. Genes are cross-referenced and hyperlinked to GeneCards.
 \end{itemize}
 
 \begin{figure}
@@ -386,7 +388,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 }
 
-\caption{Interactive results for eCrosstalk. The user input data are also returned for the exploration.}\label{fig:eCrosstalk-results}
+\caption{Interactive results for eCrosstalk. The user-input data are also returned for the exploration.}\label{fig:eCrosstalk-results}
 \end{figure}
 
 \hypertarget{ctgene}{%
@@ -402,7 +404,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \texttt{Step\ 1}: a list of user-defined SNPs (1st column for dbSNP rsIDs, 2nd for significance info). By default, sample data are shared genetic variants identified from cross-disease genome-wide association studies in inflammatory disorders; see \href{https://www.ncbi.nlm.nih.gov/pubmed/26974007}{Nature Genetics 2016}.
+  \texttt{Step\ 1}: a list of user-input SNPs, with 1st column for dbSNP rsIDs and 2nd column for significance info (p-values between 0 and 1). The error message will be displayed if the input is invalid. Example input data are shared genetic variants identified from cross-disease genome-wide association studies in inflammatory disorders; see \href{https://www.ncbi.nlm.nih.gov/pubmed/26974007}{Nature Genetics 2016}.
 \end{itemize}
 
 \begin{quote}
@@ -411,13 +413,13 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 \begin{itemize}
 \item
-  \texttt{Step\ 2}: includes SNPs in Linkage Disequilibrium (LD).
+  \texttt{Step\ 2}: includes SNPs in Linkage Disequilibrium (LD). By default, input SNPs with a typical threshold (p-value \textless{} 5e−8) are considered, and additional SNPs in linkage disequilibrium (R2 \textless{} 0.8) can be also included according to the European population.
 \item
-  \texttt{Step\ 3}: uses genomic proximity, quantitative trait locus (QTL), or promoter capture Hi-C data to identify core genes.
+  \texttt{Step\ 3}: uses functional genomic datasets, including genomic proximity, quantitative trait locus (QTL) and promoter capture Hi-C (PCHi-C), to identify core genes.
 \item
-  \texttt{Step\ 4}: networks core genes to each other and to additional (peripheral) genes based on the knowledge of protein interactions, generating a ranked list of core and peripheral genes.
+  \texttt{Step\ 4}: networks core genes with each other and with additional (peripheral) genes based on the knowledge of protein interactions, generating a ranked list of core and peripheral genes. It is achieved using the random walk with restart (RWW) algorithm. By default, the restarting probability of 0.7 is set, empirically optimised for immune-mediated diseases; selecting a value smaller than 0.6 is not recommended as there is a higher chance to expect low performance.
 \item
-  \texttt{More\ controls}: fine-tunes parameters involved in steps described above.
+  \texttt{More\ Controls}: fine-tunes parameters involved in steps described above.
 \end{itemize}
 
 \begin{quote}
@@ -427,7 +429,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_cTGene.html}{Sample Output} includes an interactive table for targets at the gene level, and a manhattan plot (illustrating priority rating for target genes color-coded by chromosomes).
+  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_cTGene.html}{Example Output} includes a manhattan plot (illustrating priority rating for target genes color-coded by chromosomes), and two tabular displays about prioritisation and evidence. A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
 \end{itemize}
 
 \begin{figure}
@@ -446,7 +448,9 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \item
   Under the tab \texttt{Output:\ target\ genes}, \texttt{Manhattan\ plot} illustrates priority rating for target genes that are color-coded by chromosomes. Also provided is the downloadable PDF file.
 \item
-  Under the tab \texttt{Output:\ target\ genes}, \texttt{An\ interactive\ table} lists all prioritised genes, each receiving 5-star priority rating (scored 0-5). Genes are cross-referenced and linked out to GeneCards.
+  Under the tab \texttt{Output:\ target\ genes}, \texttt{Prioritisation\ table} lists all prioritised genes, each receiving 5-star priority rating (scored 0-5). Genes are cross-referenced and hyperlinked to GeneCards. The column \texttt{Type} tells the target gene type (either \texttt{Core} for core genes or \texttt{Peripheral} for peripheral genes). Also provided is a summary of evidence used to define core genes, including columns \texttt{Proximity} (evidence of genomic proximity), \texttt{QTL} (e/pQTL evidence) and \texttt{PCHiC} (conformation evidence).
+\item
+  Under the tab \texttt{Output:\ target\ genes}, \texttt{Evidence\ table} for core genes, showing which SNPs (see the column \texttt{SNPs}) are used to define core genes (the column \texttt{Core\ genes}) based on which evidence (see the column \texttt{Evidence}). The column \texttt{SNP\ type} tells the SNP type (either \texttt{Input} for use-input SNPs or \texttt{LD} for LD SNPs). Notably, the column \texttt{Evidence} details datasets used: the prefix \texttt{Proximity\_} indicative of SNPs in the proximity, the prefix \texttt{PCHiC\_} for PCHi-C datasets, and the prefix \texttt{QTL\_} for e/pQTL datasets.
 \end{itemize}
 
 \begin{figure}
@@ -455,7 +459,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 }
 
-\caption{Interactive results for cTGene. The user input data are also returned for the exploration.}\label{fig:cTGene-results}
+\caption{Interactive results for cTGene. The user-input data are also returned for the exploration.}\label{fig:cTGene-results}
 \end{figure}
 
 \hypertarget{ctcrosstalk}{%
@@ -471,7 +475,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \texttt{Step\ 1}: a list of user-defined SNPs (1st column for dbSNP rsIDs, 2nd for significance info). By default, sample data are shared genetic variants identified from cross-disease genome-wide association studies in inflammatory disorders; see \href{https://www.ncbi.nlm.nih.gov/pubmed/26974007}{Nature Genetics 2016}.
+  \texttt{Step\ 1}: a list of user-input SNPs, with 1st column for dbSNP rsIDs and 2nd column for significance info (p-values between 0 and 1). The error message will be displayed if the input is invalid. Example input data are shared genetic variants identified from cross-disease genome-wide association studies in inflammatory disorders; see \href{https://www.ncbi.nlm.nih.gov/pubmed/26974007}{Nature Genetics 2016}.
 \end{itemize}
 
 \begin{quote}
@@ -480,15 +484,15 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 \begin{itemize}
 \item
-  \texttt{Step\ 2}: includes SNPs in Linkage Disequilibrium (LD).
+  \texttt{Step\ 2}: includes SNPs in Linkage Disequilibrium (LD). By default, input SNPs with a typical threshold (p-value \textless{} 5e−8) are considered, and additional SNPs in linkage disequilibrium (R2 \textless{} 0.8) can be also included according to the European population.
 \item
-  \texttt{Step\ 3}: uses genomic proximity, quantitative trait locus (QTL), or promoter capture Hi-C data to identify core genes.
+  \texttt{Step\ 3}: uses functional genomic datasets, including genomic proximity, quantitative trait locus (QTL) and promoter capture Hi-C (PCHi-C), to identify core genes.
 \item
-  \texttt{Step\ 4}: networks core genes to each other and to additional (peripheral) genes based on the knowledge of protein interactions, generating a ranked list of core and peripheral genes.
+  \texttt{Step\ 4}: networks core genes with each other and with additional (peripheral) genes based on the knowledge of protein interactions, generating a ranked list of core and peripheral genes. It is achieved using the random walk with restart (RWW) algorithm. By default, the restarting probability of 0.7 is set, empirically optimised for immune-mediated diseases; selecting a value smaller than 0.6 is not recommended as there is a higher chance to expect low performance.
 \item
-  \texttt{Step\ 5}: identifies the subnetwork of highly ranked genes that mediate pathway crosstalk.
+  \texttt{Step\ 5}: identifies the subnetwork of highly-ranked genes that mediate the crosstalk between molecular pathways. The significance (p-value) of observing the identified crosstalk by chance is estimated by a degree-preserving node permutation test.
 \item
-  \texttt{More\ controls}: fine-tunes parameters involved in steps described above.
+  \texttt{More\ Controls}: fine-tunes parameters involved in steps described above.
 \end{itemize}
 
 \begin{quote}
@@ -498,7 +502,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_cTCrosstalk.html}{Sample Output} includes an interactive table for targets at the gene level, a manhattan plot illustrating priority rating for target genes color-coded by chromosomes, a dot plot and an interactive table for target pathways, an interactive table for pathway crosstalk genes, and a network visualisation illustrating the crosstalk between pathways.
+  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_cTCrosstalk.html}{Example Output} includes target genes, target pathways, targets at the crosstalk level, and crosstalk-based drug repurposing. A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
 \end{itemize}
 
 \begin{figure}
@@ -515,14 +519,14 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 \begin{itemize}
 \item
-  \texttt{Output:\ target\ genes}: includes \texttt{Manhattan\ plot} illustrating priority rating for target genes that are color-coded by chromosomes. Also provided is the downloadable PDF file. It also includes \texttt{An\ interactive\ table} listing all prioritised genes, each receiving 5-star priority rating (scored 0-5). Genes are cross-referenced and linked out to GeneCards.
+  \texttt{Output:\ target\ genes}: includes \texttt{Manhattan\ plot} illustrating priority rating for target genes that are color-coded by chromosomes. Also provided is the downloadable PDF file. It also includes \texttt{Prioritisation\ table} listing all prioritised genes, each receiving 5-star priority rating (scored 0-5), and \texttt{Evidence\ table} for core genes showing which SNPs are used to define core genes based on which evidence. Genes are cross-referenced and hyperlinked to GeneCards.
 \item
-  \texttt{Output:\ target\ pathways}: includes a dot plot and an interactive table for target pathways. Also provided is the downloadable PDF file.
+  \texttt{Output:\ target\ pathways}: includes a dot plot and a prioritisation table for target pathways. Also provided is the downloadable PDF file.
 \item
-  \texttt{Output:\ targets\ at\ the\ crosstalk\ level}: includes \texttt{A\ network\ visualisation} illustrating the crosstalk between pathways, with genes colored by priority rating and labelled in the form of \texttt{rating@rank}, and \texttt{An\ interactive\ table}
-  listing crosstalk genes, each receiving 5-star priority rating (scored 0-5). Genes are cross-referenced and linked out to GeneCards.
+  \texttt{Output:\ targets\ at\ the\ crosstalk\ level}: includes \texttt{A\ network\ visualisation} illustrating the crosstalk between pathways, with genes colored by priority rating and labelled in the form of \texttt{rating®rank}, \texttt{Prioritisation\ table}
+  listing crosstalk genes, each receiving 5-star priority rating (scored 0-5), and \texttt{Evidence\ table} for pathway crosstalk genes, showing which SNPs are used to crosstalk genes based on which evidence. Genes are cross-referenced and hyperlinked to GeneCards.
 \item
-  \texttt{Output:\ crosstalk-based\ drug\ repurposing}: includes \texttt{A\ heatmap-like\ illustration} showing drug repurposing analysis of approved drugs (licensed medications) based on pathway crosstalk genes, with crosstalk genes on y-axis, disease indications on x-axis, red dots indexed in number and referenced beneath in the table where the information on approved drugs and mechanisms of action is detailed. It also includes \texttt{An\ interactive\ table} of crosstalk genes (the column Crosstalk genes), disease indications (the column Disease indications), approved drugs and mechanisms (the column Approved drugs (mechanisms of action)), and drug index (the column Index) shown above within the dot plot.
+  \texttt{Output:\ crosstalk-based\ drug\ repurposing}: includes \texttt{A\ heatmap-like\ illustration} showing drug repurposing analysis of approved drugs (licensed medications) based on pathway crosstalk genes, with crosstalk genes on y-axis, disease indications on x-axis, red dots indexed in number and referenced beneath in the table where the information on approved drugs and mechanisms of action is detailed. It also includes \texttt{An\ interactive\ table} of crosstalk genes (the column \texttt{Crosstalk\ genes}), disease indications (the column \texttt{Disease\ indications}), approved drugs and mechanisms (the column \texttt{Approved\ drugs\ {[}mechanisms\ of\ action{]}}), and drug index (the column \texttt{Index}) shown above within the dot plot.
 \end{itemize}
 
 \begin{figure}
@@ -531,7 +535,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 }
 
-\caption{Interactive results for cTCrosstalk. The user input data are also returned for the exploration.}\label{fig:cTCrosstalk-results}
+\caption{Interactive results for cTCrosstalk. The user-input data are also returned for the exploration.}\label{fig:cTCrosstalk-results}
 \end{figure}
 
 \end{document}

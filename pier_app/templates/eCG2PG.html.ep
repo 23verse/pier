@@ -49,18 +49,27 @@
 my $info='
 <h5>Input</h5>
 <ul>
-<li>(<b>Step 1</b>) a list of user-defined core genes (1st column for gene symbols, 2nd for weights), such as <a href="/app/examples/eV2CG.xlsx" download="/app/examples/eV2CG.xlsx" target="/app/examples/eV2CG.xlsx"><i class="fa fa-cloud-download fa" aria-hidden="true"></i>&nbspExample Input</a>.
+<li>(<b>Step 1</b>) a list of user-defined core genes, with 1st column for gene symbols, 2nd columns for weights (positive values), such as <a href="/app/examples/eV2CG.xlsx" download="/app/examples/eV2CG.xlsx" target="/app/examples/eV2CG.xlsx"><i class="fa fa-cloud-download fa" aria-hidden="true"></i>&nbspExample Input</a>. The error message will be displayed if the input is invalid.
 </ul>
 
 <h5>Mechanism</h5>
 <ul>
-<li>(<b>Step 2</b>) networks core genes to each other and to additional (peripheral) genes based on the knowledge of protein interactions, generating a ranked list of core and peripheral genes.
-<li>(<b>More controls</b>) fine-tunes parameters involved in steps described above.
+<li>(<b>Step 2</b>) networks core genes with each other and with additional (peripheral) genes based on the knowledge of protein interactions, generating a ranked list of core and peripheral genes. It is achieved using the random walk with restart (RWW) algorithm. By default, the restarting probability of 0.7 is set, empirically optimised for immune-mediated diseases; selecting a value smaller than 0.6 is not recommended as there is a higher chance to expect low performance.
+<li>(<b>More Controls</b>) fine-tunes parameters involved in steps described above.
 </ul>
 
 <h5>Output</h5>
 <ul>
-<li>(<a href="/app/examples/_tmp_RMD_eCG2PG.html" download="/app/examples/_tmp_RMD_eCG2PG.html" target="/app/examples/_tmp_RMD_eCG2PG.html"><i class="fa fa-cloud-download fa" aria-hidden="true"></i>&nbspExample Output</a>) includes an interactive table for core and peripheral genes, and a manhattan plot (illustrating scores for genes color-coded by chromosomes).
+<li>(<a href="/app/examples/_tmp_RMD_eCG2PG.html" download="/app/examples/_tmp_RMD_eCG2PG.html" target="/app/examples/_tmp_RMD_eCG2PG.html"><i class="fa fa-cloud-download fa" aria-hidden="true"></i>&nbspExample Output</a>) includes an interactive table for core and peripheral genes, and a manhattan plot (illustrating scores for genes color-coded by chromosomes). A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
+</ul>
+
+<h5>Other useful information</h5>
+<ul>
+<li>At step 1, first prepare the tab-delimited input using Microsoft Excel and then do copying/pasting (the text box is pre-filled with the provided example).
+<li>Since the text box at Step 1 is always pre-filled with the provided example when the interface page is first-visited or refreshed, it is very important to paste your own data every time before clicking the Submit button.
+<li>Currently only one run is allowed for the same machine and the same browser (concurrent client instances are not supported).
+<li>Precaution should be taken using the default parameters empirically optimised for immune-mediated diseases. The users are advised to try different values and decide on the optimal ones, if available, also considering other relevant information for disease under study.
+<li> Please drop <a href="mailto:fh12355@rjh.com.cn"><i class="fa fa-envelope-o"></i></a> for bug reports and enquires. 
 </ul>
 ';
 
@@ -517,7 +526,7 @@ SLC48A1	0.007338
 <h5>Error Message: your input at Step 1</h5>
 <ul>
 <li>Please check your input gene identifiers (<b>official symbols</b>) and weights (<b>positive values</b>); otherwise they will be ignored.
-<li>Please paste your own data at Step 1 <strong>every time</strong> before clicking the Submit button. Notably, the text box at Step 1 is always filled with the provided example when the interface page is first-visited or refreshed.
+<li>Please paste your own data at Step 1 <strong>every time</strong> before clicking the Submit button. Notably, the text box at Step 1 is always pre-filled with the provided example when the interface page is first-visited or refreshed.
 </ul>
 
 		</p>
