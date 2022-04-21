@@ -228,22 +228,6 @@
 		<!-- http://badge.dimensions.ai/#build -->
 		<script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
 		
-		<!-- JS for HighCharts -->
-        <script type="text/javascript" src="/dep/HighCharts/highcharts.js"></script>
-        <script type="text/javascript" src="/dep/HighCharts/exporting.js"></script>		
-		<!--
-        <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
-        <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
-        -->
-        <!-- JS for HighCharts barcharts -->
-		<script type="text/javascript" src="/app/js/barcharts.js" ></script>
-		<!-- JS for HighCharts heatmap -->
-		<script type="text/javascript" src="/dep/HighCharts/heatmap.js"></script>		
-		<!--
-		<script src="http://code.highcharts.com/modules/heatmap.js"></script>
-		-->
-		<script type="text/javascript" src="/app/js/heatmapcharts.js" ></script>
-		
 		<!-- JS for bootstrap-toggle -->
 		<script type="text/javascript" src="/dep/bootstraptoggle/bootstrap-toggle.min.js" ></script>	
 
