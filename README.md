@@ -16,15 +16,30 @@
 
 > The PiER was also built using [Bootstrap](https://getbootstrap.com), supporting the mobile-first and responsive webserver in all major platform browsers.
 
-> The folder `pier_app` has the following tree-like file structure
+> The directory `pier_app` has the following tree-like 3-level directory structure:
 ```ruby
 pier_app
 ├── lib
 │   └── PIER_app
+│       └── Controller
 ├── public
 │   ├── PiERbooklet
+│   │   ├── index_files
+│   │   └── libs
 │   ├── app
+│   │   ├── ajex
+│   │   ├── css
+│   │   ├── examples
+│   │   └── img
 │   └── dep
+│       ├── Select2
+│       ├── bootstrap
+│       ├── bootstrapselect
+│       ├── bootstraptoggle
+│       ├── dataTables
+│       ├── fontawesome
+│       ├── jquery
+│       └── typeahead
 ├── script
 ├── t
 └── templates
