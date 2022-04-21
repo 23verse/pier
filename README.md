@@ -18,6 +18,7 @@
 
 > The folder `pier_app` has the following tree-like file structure
 ```ruby
+pier_app
 ├── lib
 │   └── PIER_app
 ├── public
