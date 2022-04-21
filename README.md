@@ -16,6 +16,21 @@
 
 > The PiER was also built using [Bootstrap](https://getbootstrap.com), supporting the mobile-first and responsive webserver in all major platform browsers.
 
+> The folder `pier_app` has the following tree-like file structure
+```ruby
+├── lib
+│   └── PIER_app
+├── public
+│   ├── PiERbooklet
+│   ├── app
+│   └── dep
+├── script
+├── t
+└── templates
+    └── layouts
+```
+
+
 ## @ Installation
 
 Assume you have a `ROOT (sudo)` privilege on `Ubuntu`

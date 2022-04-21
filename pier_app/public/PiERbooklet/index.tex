@@ -91,7 +91,7 @@
 
 }
 
-\caption{The logo for the web-based facilities - PiER that enables and automates genetics-led and network-based genetic target prioritisation.}\label{fig:logo}
+\caption{The logo for the PiER. The above-water pillar structure in red (symbolising the infrastructure) and water waves in blue (by analogy the piano stave) collectively illustrate the web-based PiER facilities enabling ab initio and real-time genetic target prioritisation.}\label{fig:logo}
 \end{figure}
 
 \begin{quote}
@@ -104,21 +104,21 @@ The field of target discovery has been advanced by genetics-led target prioritis
 \textbf{Design}
 \end{quote}
 
-Building on the verified Pi approach (see \href{https://www.ncbi.nlm.nih.gov/pubmed/31253980}{Nature Genetics 2019}), here I introduce web-based servers/facilities called \texttt{PiER}. The PiER is free and open to all users and there is no login requirement, allowing the users to perform \texttt{ab\ initio} and \texttt{real-time} target prioritisation harnessing human disease genetics, functional genomics and protein interactions.
+Building on the verified Pi approach (see \href{https://www.ncbi.nlm.nih.gov/pubmed/31253980}{Nature Genetics 2019}), here I introduce web-based servers/facilities called \texttt{PiER}. The PiER is free and open to all users and there is no login requirement, allowing the users to perform ab initio and real-time target prioritisation harnessing human disease genetics, functional genomics and protein interactions.
 
-By analogy to the piano \href{https://www.piano-keyboard-guide.com/grand-staff.html}{stave}, the PiER consists of five horizontal lines, with three lines representing the elementary facility (\texttt{eV2CG}, \texttt{eCG2PG} and \texttt{eCrosstalk}), each doing specific tasks on their own, and the rest two lines signifying the combinatory facility (\texttt{cTGene} and \texttt{cTCrosstalk}).
+By analogy to the \href{https://www.piano-keyboard-guide.com/grand-staff.html}{piano stave}, the PiER consists of five horizontal lines, with three lines representing the elementary facility (\texttt{eV2CG}, \texttt{eCG2PG} and \texttt{eCrosstalk}), each doing specific tasks on their own, and the rest two lines signifying the combinatory facility (\texttt{cTGene} and \texttt{cTCrosstalk}).
 
 \begin{itemize}
 \item
-  \protect\hyperlink{ev2cg}{eV2CG}, linking variants to core genes; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eV2CG.html}{Example Output}
+  \protect\hyperlink{ev2cg}{eV2CG}, linking variants to core genes; see \href{/app/examples/_tmp_RMD_eV2CG.html}{Example Output}
 \item
-  \protect\hyperlink{ecg2pg}{eCG2PG}, networking core genes to peripheral genes; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eCG2PG.html}{Example Output}
+  \protect\hyperlink{ecg2pg}{eCG2PG}, networking core genes to peripheral genes; see \href{/app/examples/_tmp_RMD_eCG2PG.html}{Example Output}
 \item
-  \protect\hyperlink{ecrosstalk}{eCrosstalk}, identifying the crosstalk between pathways; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eCrosstalk.html}{Example Output}
+  \protect\hyperlink{ecrosstalk}{eCrosstalk}, identifying the crosstalk between pathways; see \href{/app/examples/_tmp_RMD_eCrosstalk.html}{Example Output}
 \item
-  \protect\hyperlink{ctgene}{cTGene}, prioritising targets at the gene level; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_cTGene.html}{Example Output}
+  \protect\hyperlink{ctgene}{cTGene}, prioritising targets at the gene level; see \href{/app/examples/_tmp_RMD_cTGene.html}{Example Output}
 \item
-  \protect\hyperlink{ctcrosstalk}{cTCrosstalk}, prioritising targets at the crosstalk level; see \href{http://www.genetictargets.com/app/examples/_tmp_RMD_cTCrosstalk.html}{Example Output}
+  \protect\hyperlink{ctcrosstalk}{cTCrosstalk}, prioritising targets at the crosstalk level; see \href{/app/examples/_tmp_RMD_cTCrosstalk.html}{Example Output}
 \end{itemize}
 
 \hypertarget{facilities}{%
@@ -140,7 +140,7 @@ The elementary facility supports three specific tasks, including three online to
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-3}A summary of the PiER website browser compatibility.}
+\caption{\label{tab:unnamed-chunk-3}A summary of the PiER browser compatibility.}
 \centering
 \begin{tabular}[t]{l|c|c|c}
 \hline
@@ -162,7 +162,7 @@ Firefox & 95.0.2 & 95.0.2 & 95.0.2\\
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-4}A summary of the estimated runtime.}
+\caption{\label{tab:unnamed-chunk-4}A summary of the runtime (on the server and client sides) per tool estimated using Google Chrome.}
 \centering
 \begin{tabular}[t]{c|c|c}
 \hline
@@ -190,7 +190,49 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 }
 
-\caption{The landing frontpage of the PiER, featuring two facilities (elementary and combinatory). The elementary facility includes: (i) eV2CG, linking disease associated variants (particularly located at the non-coding genomic region) to (core) genes likely responsible for associations, based on either conformation evidence (that is, promoter-centered chromatin interactions), quantitative trait locus (QTL) mapping (that is, genetic regulation of gene expression or protein abundance), or simply genomic proximity; (ii) eCG2PG, using the knowledge of protein interactions to ‘network’ core genes to each other and to additional (peripheral) genes as well, generating a ranked list of core and peripheral genes; and (iii) eCrosstalk, exploiting the information of well-curated pathway-derived interactions to identify the subnetwork of highly ranked genes that mediate pathway crosstalk. Chaining together elementary functionalities above into pipelines provides the combinatory facility, enabling/automating genetics-led and network-based identification and prioritisation of drug targets: (iv) at the gene level (cTGene); and (v) at the crosstalk level (cTCrosstalk). Also included is the tutorial-like booklet (in an HTML format) describing step-by-step instructions on how to use.}\label{fig:app-front}
+\caption{The landing frontpage (visited using Google Chrome in MacBook Pro) of the PiER, featuring two facilities (`elementary` and `combinatory`). The elementary facility includes: (i) `eV2CG`, linking disease associated variants (particularly located at the non-coding genomic region) to core genes likely responsible for genetic associations, based on either promoter capture Hi-C (PCHi-C, that is, conformation evidence), quantitative trait locus (QTL) mapping (that is, genetic regulation of gene expression or protein abundance), or simply genomic proximity; (ii) `eCG2PG`, using knowledge of protein interactions to ‘network’ core genes with each other and with additional peripheral genes as well, producing a ranked list of core and peripheral genes; and (iii) `eCrosstalk`, exploiting the information of pathway-derived interactions to identify highly-ranked genes that mediate the crosstalk between molecular pathways. By chaining together elementary tasks supported in the elementary facility, the combinatory facility enables automation of genetics-led and network-based integrative prioritisation for genetic targets: (iv) at the gene level (`cTGene`); and (v) at the crosstalk level (`cTCrosstalk`). Also included is the tutorial-like booklet (in an HTML format) describing step-by-step instructions on how to use.}\label{fig:app-front}
+\end{figure}
+
+\hypertarget{development}{%
+\chapter{Development}\label{development}}
+
+The PiER was developed using a next-generation Perl web framework \href{https://www.mojolicious.org}{Mojolicious} that requires nearly zero-effort maintenance for interface updates. The PiER was also built using \href{https://getbootstrap.com}{Bootstrap} that supports the mobile-first and responsive webserver. The source codes are made available at \href{https://github.com/23verse/pier}{GitHub}.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{index_files/figure-latex/app-iphone-1} 
+
+}
+
+\caption{The screenshots for the PiER visited using Google Chrome in iPhone. Left: the frontpage; Right: the `eV2CG` interface.}\label{fig:app-iphone}
+\end{figure}
+
+\hypertarget{help-buttons}{%
+\chapter{Help buttons}\label{help-buttons}}
+
+Each user-request interface has the \texttt{Show/Hide\ Info} toggle button that contains the help information on use, including the details on input, output, mechanism and other useful information, while the \texttt{Example\ I/O} button showcases the example input/output. For example, shown below is the screenshot in the \texttt{cTCrosstalk} interface.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{index_files/figure-latex/cTCrosstalk-help-1} 
+
+}
+
+\caption{The screenshots for the `Show/Hide Info` toggle button in the `cTCrosstalk` interface.}\label{fig:cTCrosstalk-help}
+\end{figure}
+
+\hypertarget{error-messages}{%
+\chapter{Error messages}\label{error-messages}}
+
+The error messages will be displayed, for example, if the input into the \texttt{cTCrosstalk} is invalid (see the screenshot below). Notably, in the results page, a summary of input data is also returned to the users for the reference.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{index_files/figure-latex/cTCrosstalk-error-1} 
+
+}
+
+\caption{The screenshot for the error messages shown when the input is invalid, for example, in the `cTCrosstalk` interface.}\label{fig:cTCrosstalk-error}
 \end{figure}
 
 \hypertarget{ev2cg}{%
@@ -229,7 +271,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eV2CG.html}{Example Output} includes two interactive tables for core genes and evidence used, and a manhattan plot (illustrating scored core genes color-coded by chromosomes). A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
+  \href{/app/examples/_tmp_RMD_eV2CG.html}{Example Output} includes two interactive tables for core genes and evidence used, and a manhattan plot (illustrating scored core genes color-coded by chromosomes). A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
 \end{itemize}
 
 \begin{figure}
@@ -238,7 +280,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 }
 
-\caption{The interface of eV2CG, linking disease associated variants (particularly located at the non-coding genomic region) to (core) genes likely responsible for associations, based on either conformation evidence (that is, promoter-centered chromatin interactions), quantitative trait locus (QTL) mapping (that is, genetic regulation of gene expression or protein abundance), or simply genomic proximity. The Show/Hide Info toggle button contains the help information on how to use eV2CG, including input, output, mechanism, etc.}\label{fig:eV2CG-interface}
+\caption{The interface of eV2CG, linking disease associated variants (particularly located at the non-coding genomic region) to (core) genes likely responsible for associations, based on either promoter capture Hi-C (PCHi-C; conformation evidence), quantitative trait locus (QTL) mapping (that is, genetic regulation of gene expression or protein abundance), or simply genomic proximity. The `Show/Hide Info` toggle button contains the help information on how to use the `eV2CG`, including input, output, mechanism, etc.}\label{fig:eV2CG-interface}
 \end{figure}
 
 \hypertarget{linking-results}{%
@@ -255,11 +297,20 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{index_files/figure-latex/eV2CG-results-1} 
+{\centering \includegraphics[width=0.8\linewidth]{index_files/figure-latex/eV2CG-results-1} 
 
 }
 
-\caption{Interactive results for eV2CG. The user-input data are also returned for the exploration.}\label{fig:eV2CG-results}
+\caption{Interactive results for the `eV2CG`. Under the tab `Output: core genes` is a manhattan plot illustrating scores for core genes. The user-input data under the tab `Input into eV2CG` are also returned for the exploration.}\label{fig:eV2CG-results}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{index_files/figure-latex/eV2CG-evidence-1} 
+
+}
+
+\caption{Two tabular displays about core genes (top) and evidence (bottom) under the tab `Output: core genes`.}\label{fig:eV2CG-evidence}
 \end{figure}
 
 \hypertarget{ecg2pg}{%
@@ -296,7 +347,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eCG2PG.html}{Example Output} includes an interactive table for core and peripheral genes, and a manhattan plot (illustrating scores for genes color-coded by chromosomes). A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
+  \href{/app/examples/_tmp_RMD_eCG2PG.html}{Example Output} includes an interactive table for core and peripheral genes, and a manhattan plot (illustrating scores for genes color-coded by chromosomes). A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
 \end{itemize}
 
 \begin{figure}
@@ -305,7 +356,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 }
 
-\caption{The interface of eCG2PG, using the knowledge of protein interactions to ‘network’ core genes to each other and to additional (peripheral) genes as well, generating a ranked list of core and peripheral genes. The Show/Hide Info toggle button contains the help information on how to use eCG2PG, including input, output, mechanism, etc.}\label{fig:eCG2PG-interface}
+\caption{The interface of the `eCG2PG`, using the knowledge of protein interactions to ‘network’ core genes with each other and with additional (peripheral) genes as well, generating a ranked list of core and peripheral genes. The `Show/Hide Info` toggle button contains the help information on how to use the `eCG2PG`, including input, output, mechanism, etc.}\label{fig:eCG2PG-interface}
 \end{figure}
 
 \hypertarget{networking-results}{%
@@ -320,11 +371,11 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{index_files/figure-latex/eCG2PG-results-1} 
+{\centering \includegraphics[width=0.8\linewidth]{index_files/figure-latex/eCG2PG-results-1} 
 
 }
 
-\caption{Interactive results for eCG2PG. The user-input data are also returned for the exploration.}\label{fig:eCG2PG-results}
+\caption{Interactive results for the `eCG2PG` under the tab `Output: core and peripheral genes`. The user-input data the tab `Input into eCG2PG` are also returned for the exploration.}\label{fig:eCG2PG-results}
 \end{figure}
 
 \hypertarget{ecrosstalk}{%
@@ -360,7 +411,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_eCrosstalk.html}{Example Output} includes an interactive table for pathway crosstalk genes, and a network visualisation (illustrating the crosstalk between pathways).
+  \href{/app/examples/_tmp_RMD_eCrosstalk.html}{Example Output} includes an interactive table for pathway crosstalk genes, and a network visualisation (illustrating the crosstalk between pathways).
 \end{itemize}
 
 \begin{figure}
@@ -369,7 +420,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 }
 
-\caption{The interface of eCrosstalk, exploiting the information of well-curated pathway-derived interactions to identify the subnetwork of highly ranked genes that mediate pathway crosstalk. The Show/Hide Info toggle button introducing how to use eCrosstalk, including input, output, mechanism, etc.}\label{fig:eCrosstalk-interface}
+\caption{The interface of the `eCrosstalk`, exploiting the information of well-curated pathway-derived interactions to identify the subnetwork of highly ranked genes that mediate pathway crosstalk. The `Show/Hide Info` toggle button introducing how to use the `eCrosstalk`, including input, output, mechanism, etc.}\label{fig:eCrosstalk-interface}
 \end{figure}
 
 \hypertarget{crosstalk-results}{%
@@ -384,11 +435,11 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{index_files/figure-latex/eCrosstalk-results-1} 
+{\centering \includegraphics[width=0.8\linewidth]{index_files/figure-latex/eCrosstalk-results-1} 
 
 }
 
-\caption{Interactive results for eCrosstalk. The user-input data are also returned for the exploration.}\label{fig:eCrosstalk-results}
+\caption{Interactive results for the `eCrosstalk` under the tab `Output: pathway crosstalk`. The user-input data under the tab `Input into eCrosstalk` are also returned for the exploration.}\label{fig:eCrosstalk-results}
 \end{figure}
 
 \hypertarget{ctgene}{%
@@ -429,7 +480,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_cTGene.html}{Example Output} includes a manhattan plot (illustrating priority rating for target genes color-coded by chromosomes), and two tabular displays about prioritisation and evidence. A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
+  \href{/app/examples/_tmp_RMD_cTGene.html}{Example Output} includes a manhattan plot (illustrating priority rating for target genes color-coded by chromosomes), and two tabular displays about prioritisation and evidence. A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
 \end{itemize}
 
 \begin{figure}
@@ -438,7 +489,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 }
 
-\caption{The interface of cTGene, enabling/automating genetics-led and network-based identification and prioritisation of drug targets at the gene level. The Show/Hide Info toggle button contains the help information on how to use cTGene, including input, output, mechanism, etc.}\label{fig:cTGene-interface}
+\caption{The interface of the `cTGene`, enabling/automating genetics-led and network-based identification and prioritisation of drug targets at the gene level. The `Show/Hide Info` toggle button contains the help information on how to use the `cTGene`, including input, output, mechanism, etc.}\label{fig:cTGene-interface}
 \end{figure}
 
 \hypertarget{prioritisation-results}{%
@@ -455,11 +506,20 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{index_files/figure-latex/cTGene-results-1} 
+{\centering \includegraphics[width=0.8\linewidth]{index_files/figure-latex/cTGene-results-1} 
 
 }
 
-\caption{Interactive results for cTGene. The user-input data are also returned for the exploration.}\label{fig:cTGene-results}
+\caption{Prioritisation results for the `cTGene`. Under the tab `Output: target genes` is a manhattan plot illustrating priority rating for target genes. The user-input data under the tab `Input into cTGene` are also returned for the exploration.}\label{fig:cTGene-results}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{index_files/figure-latex/cTGene-evidence-1} 
+
+}
+
+\caption{Two tabular displays about target genes (top) and evidence (bottom) under the tab `Output: target genes`.}\label{fig:cTGene-evidence}
 \end{figure}
 
 \hypertarget{ctcrosstalk}{%
@@ -502,7 +562,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 \begin{itemize}
 \tightlist
 \item
-  \href{http://www.genetictargets.com/app/examples/_tmp_RMD_cTCrosstalk.html}{Example Output} includes target genes, target pathways, targets at the crosstalk level, and crosstalk-based drug repurposing. A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
+  \href{/app/examples/_tmp_RMD_cTCrosstalk.html}{Example Output} includes target genes, target pathways, targets at the crosstalk level, and crosstalk-based drug repurposing. A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
 \end{itemize}
 
 \begin{figure}
@@ -511,7 +571,7 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 }
 
-\caption{The interface of cTCrosstalk, enabling/automating genetics-led and network-based identification and prioritisation of drug targets at the crosstalk level. The Show/Hide Info toggle button contains the help information on how to use cTCrosstalk, including input, output, mechanism, etc.}\label{fig:cTCrosstalk-interface}
+\caption{The interface of the `cTCrosstalk`, enabling/automating genetics-led and network-based identification and prioritisation of drug targets at the crosstalk level. The `Show/Hide Info` toggle button contains the help information on how to use the `cTCrosstalk`, including input, output, mechanism, etc.}\label{fig:cTCrosstalk-interface}
 \end{figure}
 
 \hypertarget{prioritisation-results-1}{%
@@ -531,11 +591,29 @@ Combinatory & cTCrosstalk & (143 + 97) seconds\\
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{index_files/figure-latex/cTCrosstalk-results-1} 
+{\centering \includegraphics[width=0.8\linewidth]{index_files/figure-latex/cTCrosstalk-results-1} 
 
 }
 
-\caption{Interactive results for cTCrosstalk. The user-input data are also returned for the exploration.}\label{fig:cTCrosstalk-results}
+\caption{Prioritisation results for the `cTCrosstalk`. In addition to a summary of input data and the runtime (computed on the server side) under the tab `Input into cTCrosstalk`, the prioritisation results page provides the output, including target genes under the tab `Output: target genes` (the same as shown in the `cTGene`), target pathways under the tab `Output: target pathways`, and targets at the crosstalk level under the tab `Output: targets at the crosstalk level`, and crosstalk-based drug repurposing under the tab `Output: crosstalk-based drug repurposing`. Under the tab `Output: target genes` include  network visualisation of the crosstalk, with genes/nodes colour-coded by priority rating and labelled in the form of `rating®rank`, and two tabular displays about prioritisation and evidence for crosstalk genes.}\label{fig:cTCrosstalk-results}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{index_files/figure-latex/cTCrosstalk-pathways-1} 
+
+}
+
+\caption{A dot plot for prioritised target pathways, with the top five labelled, available under the tab `Output: target pathways`. Also available is `Prioritisation table` for target pathways.}\label{fig:cTCrosstalk-pathways}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{index_files/figure-latex/cTCrosstalk-repurposing-1} 
+
+}
+
+\caption{A heatmap-like illustration, with crosstalk genes on the y-axis, disease indications on the x-axis, and red dots indexed in numbers under the tab `Output: crosstalk-based drug repurposing`. The index numbers are referenced in a table where the information on approved drugs and mechanisms of action is detailed.}\label{fig:cTCrosstalk-repurposing}
 \end{figure}
 
 \end{document}

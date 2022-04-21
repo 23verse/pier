@@ -1,4 +1,4 @@
-% layout 'default', tab => '/c/TGene';
+% layout 'default', tab => '/PiER/cTGene';
 % title 'PiER - Prioritising targets at the gene level';
 
 % content_for css => begin
@@ -406,7 +406,7 @@ rs1992661	1E-74
 		</div>
 	
 		<div class="text-center">
-			<h3><a href="/c/TGene"><i class="fa fa-gears fa-lg"></i>&nbsp;cTGene</a>&nbsp;-&nbsp;Prioritising targets at the gene level from input SNPs</h3>		
+			<h3><a href="/PiER/cTGene"><i class="fa fa-gears fa-lg"></i>&nbsp;cTGene</a>&nbsp;-&nbsp;Prioritising targets at the gene level from input SNPs</h3>		
 		</div>
 	</div>
 </div>

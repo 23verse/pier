@@ -1,4 +1,4 @@
-% layout 'default', tab => '/e/Crosstalk';
+% layout 'default', tab => '/PiER/eCrosstalk';
 % title 'PiER - Networking core and peripheral genes';
 
 % content_for css => begin
@@ -13743,7 +13743,7 @@ LRRC8D	9.11E-11
 		</div>
 	
 		<div class="text-center">
-			<h3><a href="/e/Crosstalk"><i class="fa fa-gear fa-lg"></i>&nbsp;eCrosstalk</a>&nbsp;-&nbsp;Identifying pathway crosstalk based on input genes</h3>	
+			<h3><a href="/PiER/eCrosstalk"><i class="fa fa-gear fa-lg"></i>&nbsp;eCrosstalk</a>&nbsp;-&nbsp;Identifying pathway crosstalk based on input genes</h3>	
 		</div>
 	</div>
 </div>

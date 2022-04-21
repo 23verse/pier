@@ -1,4 +1,4 @@
-% layout 'default', tab => '/e/V2CG';
+% layout 'default', tab => '/PiER/eV2CG';
 % title 'PiER - Linking variants to core genes';
 
 % content_for css => begin
@@ -394,7 +394,7 @@ rs1992661	1E-74
 		</div>
 	
 		<div class="text-center">
-			<h3><a href="/e/V2CG"><i class="fa fa-gear fa-lg"></i>&nbsp;eV2CG</a>&nbsp;-&nbsp;Linking to core genes from input SNPs</h3>		
+			<h3><a href="/PiER/eV2CG"><i class="fa fa-gear fa-lg"></i>&nbsp;eV2CG</a>&nbsp;-&nbsp;Linking to core genes from input SNPs</h3>		
 		</div>
 	</div>
 </div>

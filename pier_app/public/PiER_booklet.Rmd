@@ -50,15 +50,15 @@ Building on the verified Pi approach (see [Nature Genetics 2019](https://www.ncb
 
 By analogy to the [piano stave](https://www.piano-keyboard-guide.com/grand-staff.html), the PiER consists of five horizontal lines, with three lines representing the elementary facility (`eV2CG`, `eCG2PG` and `eCrosstalk`), each doing specific tasks on their own, and the rest two lines signifying the combinatory facility (`cTGene` and `cTCrosstalk`).
 
-- [eV2CG], linking variants to core genes; see [Example Output](http://www.genetictargets.com/app/examples/_tmp_RMD_eV2CG.html)
+- [eV2CG], linking variants to core genes; see [Example Output](/app/examples/_tmp_RMD_eV2CG.html)
 
-- [eCG2PG], networking core genes to peripheral genes; see [Example Output](http://www.genetictargets.com/app/examples/_tmp_RMD_eCG2PG.html)
+- [eCG2PG], networking core genes to peripheral genes; see [Example Output](/app/examples/_tmp_RMD_eCG2PG.html)
 
-- [eCrosstalk], identifying the crosstalk between pathways; see [Example Output](http://www.genetictargets.com/app/examples/_tmp_RMD_eCrosstalk.html)
+- [eCrosstalk], identifying the crosstalk between pathways; see [Example Output](/app/examples/_tmp_RMD_eCrosstalk.html)
 
-- [cTGene], prioritising targets at the gene level; see [Example Output](http://www.genetictargets.com/app/examples/_tmp_RMD_cTGene.html)
+- [cTGene], prioritising targets at the gene level; see [Example Output](/app/examples/_tmp_RMD_cTGene.html)
 
-- [cTCrosstalk], prioritising targets at the crosstalk level; see [Example Output](http://www.genetictargets.com/app/examples/_tmp_RMD_cTCrosstalk.html)
+- [cTCrosstalk], prioritising targets at the crosstalk level; see [Example Output](/app/examples/_tmp_RMD_cTCrosstalk.html)
 
 
 
@@ -113,6 +113,7 @@ rsync -avzhe ssh --progress --delete ~/Sites/XGR/PiER-site/BOOKLET/PiERbooklet r
 
 The elementary facility supports three specific tasks, including three online tools: (i) `eV2CG`, utilising functional genomics to link disease-associated variants (including those located at the non-coding genome) to core genes likely responsible for genetic associations; (ii) `eCG2PG`, using knowledge of protein interactions to ‘network’ core genes with each other and with additional peripheral genes as well, producing a ranked list of core and peripheral genes; and (iii) `eCrosstalk`, exploiting the information of pathway-derived interactions to identify highly ranked genes that mediate the crosstalk between molecular pathways. By chaining together elementary tasks supported in the elementary facility, the combinatory facility enables the automation of genetics-led and network-based integrative prioritisation for genetic targets, both at the gene level (`cTGene`) and at the crosstalk level (`cTCrosstalk`). Notably, in addition to target crosstalk, the `cTCrosstalk` further supports target pathway prioritisation and crosstalk-based drug repurposing analysis (that is, repositioning approved drugs from original disease indications into new ones).
 
+<hr>
 
 ```{r design, fig.cap="Schematic illustration of two facilities supported in the PiER.", fig.width=10, fig.height=7.2, echo=FALSE, eval=T, fig.align="center",out.width="100%"}
 library(png)
@@ -165,12 +166,41 @@ grid.raster(img)
 
 The PiER was developed using a next-generation Perl web framework [Mojolicious](https://www.mojolicious.org) that requires nearly zero-effort maintenance for interface updates. The PiER was also built using [Bootstrap](https://getbootstrap.com) that supports the mobile-first and responsive webserver. The source codes are made available at [GitHub](https://github.com/23verse/pier).
 
-```{r app-iphone, fig.cap="The screenshots for the PiER visited using Google Chrome in iPhone. Left: the frontpage; Right: the `eV2CG` interface.", fig.width=10, fig.height=10.4, echo=FALSE, eval=TRUE, fig.align="center",out.width="70%"}
+<hr>
+
+```{r app-iphone, fig.cap="The screenshots for the PiER visited using Google Chrome in iPhone. Left: the frontpage; Right: the `eV2CG` interface.", fig.width=10, fig.height=10, echo=FALSE, eval=TRUE, fig.align="center",out.width="70%"}
 library(png)
 library(grid)
 img <- readPNG("booklet.PiER.app.iphone.png")
 grid.raster(img)
 ```
+
+# Help buttons
+
+Each user-request interface has the `Show/Hide Info` toggle button that contains  the help information on use, including the details on input, output, mechanism and other useful information, while the `Example I/O` button showcases the example input/output. For example, shown below is the screenshot in the `cTCrosstalk` interface.
+
+<hr>
+
+```{r cTCrosstalk-help, fig.cap="The screenshots for the `Show/Hide Info` toggle button in the `cTCrosstalk` interface.", fig.width=10, fig.height=6.8, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
+library(png)
+library(grid)
+img <- readPNG("booklet.PiER.cTCrosstalk.help.png")
+grid.raster(img)
+```
+
+# Error messages
+
+The error messages will be displayed, for example, if the input into the `cTCrosstalk` is invalid (see the screenshot below). Notably, in the results page, a summary of input data is also returned to the users for the reference.
+
+<hr>
+
+```{r cTCrosstalk-error, fig.cap="The screenshot for the error messages shown when the input is invalid, for example, in the `cTCrosstalk` interface.", fig.width=10, fig.height=3, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
+library(png)
+library(grid)
+img <- readPNG("booklet.PiER.cTCrosstalk.error.png")
+grid.raster(img)
+```
+
 
 # eV2CG
 
@@ -190,12 +220,12 @@ grid.raster(img)
 
 > **Output**
 
-- [Example Output](http://www.genetictargets.com/app/examples/_tmp_RMD_eV2CG.html) includes two interactive tables for core genes and evidence used, and a manhattan plot (illustrating scored core genes color-coded by chromosomes). A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
+- [Example Output](/app/examples/_tmp_RMD_eV2CG.html) includes two interactive tables for core genes and evidence used, and a manhattan plot (illustrating scored core genes color-coded by chromosomes). A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
 
 <hr>
 
 
-```{r eV2CG-interface, fig.cap="The interface of eV2CG, linking disease associated variants (particularly located at the non-coding genomic region) to (core) genes likely responsible for associations, based on either conformation evidence (that is, promoter-centered chromatin interactions), quantitative trait locus (QTL) mapping (that is, genetic regulation of gene expression or protein abundance), or simply genomic proximity. The Show/Hide Info toggle button contains the help information on how to use eV2CG, including input, output, mechanism, etc.", fig.width=10, fig.height=6.2, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
+```{r eV2CG-interface, fig.cap="The interface of eV2CG, linking disease associated variants (particularly located at the non-coding genomic region) to (core) genes likely responsible for associations, based on either promoter capture Hi-C (PCHi-C; conformation evidence), quantitative trait locus (QTL) mapping (that is, genetic regulation of gene expression or protein abundance), or simply genomic proximity. The `Show/Hide Info` toggle button contains the help information on how to use the `eV2CG`, including input, output, mechanism, etc.", fig.width=10, fig.height=6.2, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
 library(png)
 library(grid)
 img <- readPNG("booklet.PiER.eV2CG.interface.png")
@@ -220,12 +250,22 @@ grid.raster(img)
 
 <hr>
 
-```{r eV2CG-results, fig.cap="Interactive results for eV2CG. The user-input data are also returned for the exploration.", fig.width=10, fig.height=10, echo=FALSE, eval=TRUE, fig.align="center",out.width="70%"}
+```{r eV2CG-results, fig.cap="Interactive results for the `eV2CG`. Under the tab `Output: core genes` is a manhattan plot illustrating scores for core genes. The user-input data under the tab `Input into eV2CG` are also returned for the exploration.", fig.width=10, fig.height=7, echo=FALSE, eval=TRUE, fig.align="center",out.width="80%"}
 library(png)
 library(grid)
 img <- readPNG("booklet.PiER.eV2CG.results.png")
 grid.raster(img)
 ```
+
+<hr>
+
+```{r eV2CG-evidence, fig.cap="Two tabular displays about core genes (top) and evidence (bottom) under the tab `Output: core genes`.", fig.width=10, fig.height=12, echo=FALSE, eval=TRUE, fig.align="center",out.width="90%"}
+library(png)
+library(grid)
+img <- readPNG("booklet.PiER.eV2CG.evidence.png")
+grid.raster(img)
+```
+
 
 
 # eCG2PG
@@ -244,12 +284,12 @@ grid.raster(img)
 
 > **Output**
 
-- [Example Output](http://www.genetictargets.com/app/examples/_tmp_RMD_eCG2PG.html) includes an interactive table for core and peripheral genes, and a manhattan plot (illustrating scores for genes color-coded by chromosomes). A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
+- [Example Output](/app/examples/_tmp_RMD_eCG2PG.html) includes an interactive table for core and peripheral genes, and a manhattan plot (illustrating scores for genes color-coded by chromosomes). A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
 
 <hr>
 
 
-```{r eCG2PG-interface, fig.cap="The interface of eCG2PG, using the knowledge of protein interactions to ‘network’ core genes to each other and to additional (peripheral) genes as well, generating a ranked list of core and peripheral genes. The Show/Hide Info toggle button contains the help information on how to use eCG2PG, including input, output, mechanism, etc.", fig.width=10, fig.height=5.3, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
+```{r eCG2PG-interface, fig.cap="The interface of the `eCG2PG`, using the knowledge of protein interactions to ‘network’ core genes with each other and with additional (peripheral) genes as well, generating a ranked list of core and peripheral genes. The `Show/Hide Info` toggle button contains the help information on how to use the `eCG2PG`, including input, output, mechanism, etc.", fig.width=10, fig.height=5.3, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
 library(png)
 library(grid)
 img <- readPNG("booklet.PiER.eCG2PG.interface.png")
@@ -265,7 +305,7 @@ grid.raster(img)
 
 <hr>
 
-```{r eCG2PG-results, fig.cap="Interactive results for eCG2PG. The user-input data are also returned for the exploration.", fig.width=10, fig.height=10, echo=FALSE, eval=TRUE, fig.align="center",out.width="70%"}
+```{r eCG2PG-results, fig.cap="Interactive results for the `eCG2PG` under the tab `Output: core and peripheral genes`. The user-input data the tab `Input into eCG2PG` are also returned for the exploration.", fig.width=10, fig.height=7, echo=FALSE, eval=TRUE, fig.align="center",out.width="80%"}
 library(png)
 library(grid)
 img <- readPNG("booklet.PiER.eCG2PG.results.png")
@@ -287,12 +327,12 @@ grid.raster(img)
 
 > **Output**
 
-- [Example Output](http://www.genetictargets.com/app/examples/_tmp_RMD_eCrosstalk.html) includes an interactive table for pathway crosstalk genes, and a network visualisation (illustrating the crosstalk between pathways).
+- [Example Output](/app/examples/_tmp_RMD_eCrosstalk.html) includes an interactive table for pathway crosstalk genes, and a network visualisation (illustrating the crosstalk between pathways).
 
 <hr>
 
 
-```{r eCrosstalk-interface, fig.cap="The interface of eCrosstalk, exploiting the information of well-curated pathway-derived interactions to identify the subnetwork of highly ranked genes that mediate pathway crosstalk. The Show/Hide Info toggle button introducing how to use eCrosstalk, including input, output, mechanism, etc.", fig.width=10, fig.height=4.8, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
+```{r eCrosstalk-interface, fig.cap="The interface of the `eCrosstalk`, exploiting the information of well-curated pathway-derived interactions to identify the subnetwork of highly ranked genes that mediate pathway crosstalk. The `Show/Hide Info` toggle button introducing how to use the `eCrosstalk`, including input, output, mechanism, etc.", fig.width=10, fig.height=4.8, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
 library(png)
 library(grid)
 img <- readPNG("booklet.PiER.eCrosstalk.interface.png")
@@ -308,7 +348,7 @@ grid.raster(img)
 
 <hr>
 
-```{r eCrosstalk-results, fig.cap="Interactive results for eCrosstalk. The user-input data are also returned for the exploration.", fig.width=10, fig.height=9, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
+```{r eCrosstalk-results, fig.cap="Interactive results for the `eCrosstalk` under the tab `Output: pathway crosstalk`. The user-input data under the tab `Input into eCrosstalk` are also returned for the exploration.", fig.width=10, fig.height=8, echo=FALSE, eval=TRUE, fig.align="center",out.width="80%"}
 library(png)
 library(grid)
 img <- readPNG("booklet.PiER.eCrosstalk.results.png")
@@ -336,12 +376,12 @@ grid.raster(img)
 
 > **Output**
 
-- [Example Output](http://www.genetictargets.com/app/examples/_tmp_RMD_cTGene.html) includes a manhattan plot (illustrating priority rating for target genes color-coded by chromosomes), and two tabular displays about prioritisation and evidence. A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference. 
+- [Example Output](/app/examples/_tmp_RMD_cTGene.html) includes a manhattan plot (illustrating priority rating for target genes color-coded by chromosomes), and two tabular displays about prioritisation and evidence. A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference. 
 
 <hr>
 
 
-```{r cTGene-interface, fig.cap="The interface of cTGene, enabling/automating genetics-led and network-based identification and prioritisation of drug targets at the gene level. The Show/Hide Info toggle button contains the help information on how to use cTGene, including input, output, mechanism, etc.", fig.width=10, fig.height=7.8, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
+```{r cTGene-interface, fig.cap="The interface of the `cTGene`, enabling/automating genetics-led and network-based identification and prioritisation of drug targets at the gene level. The `Show/Hide Info` toggle button contains the help information on how to use the `cTGene`, including input, output, mechanism, etc.", fig.width=10, fig.height=7.8, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
 library(png)
 library(grid)
 img <- readPNG("booklet.PiER.cTGene.interface.png")
@@ -358,12 +398,22 @@ grid.raster(img)
 
 <hr>
 
-```{r cTGene-results, fig.cap="Interactive results for cTGene. The user-input data are also returned for the exploration.", fig.width=10, fig.height=7.9, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
+```{r cTGene-results, fig.cap="Prioritisation results for the `cTGene`. Under the tab `Output: target genes` is a manhattan plot illustrating priority rating for target genes. The user-input data under the tab `Input into cTGene` are also returned for the exploration.", fig.width=10, fig.height=5.8, echo=FALSE, eval=TRUE, fig.align="center",out.width="80%"}
 library(png)
 library(grid)
 img <- readPNG("booklet.PiER.cTGene.results.png")
 grid.raster(img)
 ```
+
+<hr>
+
+```{r cTGene-evidence, fig.cap="Two tabular displays about target genes (top) and evidence (bottom) under the tab `Output: target genes`.", fig.width=10, fig.height=13, echo=FALSE, eval=TRUE, fig.align="center",out.width="90%"}
+library(png)
+library(grid)
+img <- readPNG("booklet.PiER.cTGene.evidence.png")
+grid.raster(img)
+```
+
 
 
 # cTCrosstalk
@@ -388,12 +438,12 @@ grid.raster(img)
 
 > **Output**
 
-- [Example Output](http://www.genetictargets.com/app/examples/_tmp_RMD_cTCrosstalk.html) includes target genes, target pathways, targets at the crosstalk level, and crosstalk-based drug repurposing. A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
+- [Example Output](/app/examples/_tmp_RMD_cTCrosstalk.html) includes target genes, target pathways, targets at the crosstalk level, and crosstalk-based drug repurposing. A summary of input data and the runtime (computed on the server side) is also returned to the users for the reference.
 
 <hr>
 
 
-```{r cTCrosstalk-interface, fig.cap="The interface of cTCrosstalk, enabling/automating genetics-led and network-based identification and prioritisation of drug targets at the crosstalk level. The Show/Hide Info toggle button contains the help information on how to use cTCrosstalk, including input, output, mechanism, etc.", fig.width=10, fig.height=8.6, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
+```{r cTCrosstalk-interface, fig.cap="The interface of the `cTCrosstalk`, enabling/automating genetics-led and network-based identification and prioritisation of drug targets at the crosstalk level. The `Show/Hide Info` toggle button contains the help information on how to use the `cTCrosstalk`, including input, output, mechanism, etc.", fig.width=10, fig.height=8.6, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
 library(png)
 library(grid)
 img <- readPNG("booklet.PiER.cTCrosstalk.interface.png")
@@ -413,10 +463,27 @@ listing crosstalk genes, each receiving 5-star priority rating (scored 0-5), and
 
 <hr>
 
-```{r cTCrosstalk-results, fig.cap="Interactive results for cTCrosstalk. The user-input data are also returned for the exploration.", fig.width=10, fig.height=10, echo=FALSE, eval=TRUE, fig.align="center",out.width="100%"}
+```{r cTCrosstalk-results, fig.cap="Prioritisation results for the `cTCrosstalk`. In addition to a summary of input data and the runtime (computed on the server side) under the tab `Input into cTCrosstalk`, the prioritisation results page provides the output, including target genes under the tab `Output: target genes` (the same as shown in the `cTGene`), target pathways under the tab `Output: target pathways`, and targets at the crosstalk level under the tab `Output: targets at the crosstalk level`, and crosstalk-based drug repurposing under the tab `Output: crosstalk-based drug repurposing`. Under the tab `Output: target genes` include  network visualisation of the crosstalk, with genes/nodes colour-coded by priority rating and labelled in the form of `rating®rank`, and two tabular displays about prioritisation and evidence for crosstalk genes.", fig.width=10, fig.height=8, echo=FALSE, eval=TRUE, fig.align="center",out.width="80%"}
 library(png)
 library(grid)
 img <- readPNG("booklet.PiER.cTCrosstalk.results.png")
 grid.raster(img)
 ```
 
+<hr>
+
+```{r cTCrosstalk-pathways, fig.cap="A dot plot for prioritised target pathways, with the top five labelled, available under the tab `Output: target pathways`. Also available is `Prioritisation table` for target pathways.", fig.width=10, fig.height=10, echo=FALSE, eval=TRUE, fig.align="center",out.width="80%"}
+library(png)
+library(grid)
+img <- readPNG("booklet.PiER.cTCrosstalk.pathways.png")
+grid.raster(img)
+```
+
+<hr>
+
+```{r cTCrosstalk-repurposing, fig.cap="A heatmap-like illustration, with crosstalk genes on the y-axis, disease indications on the x-axis, and red dots indexed in numbers under the tab `Output: crosstalk-based drug repurposing`. The index numbers are referenced in a table where the information on approved drugs and mechanisms of action is detailed.", fig.width=10, fig.height=13, echo=FALSE, eval=TRUE, fig.align="center",out.width="90%"}
+library(png)
+library(grid)
+img <- readPNG("booklet.PiER.cTCrosstalk.repurposing.png")
+grid.raster(img)
+```

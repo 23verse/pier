@@ -1,4 +1,4 @@
-% layout 'default', tab => '/c/TCrosstalk';
+% layout 'default', tab => '/PiER/cTCrosstalk';
 % title 'PiER - Prioritising targets at the crosstalk level';
 
 % content_for css => begin
@@ -406,7 +406,7 @@ rs1992661	1E-74
 		</div>
 	
 		<div class="text-center">
-			<h3><a href="/c/TCrosstalk"><i class="fa fa-gears fa-lg"></i>&nbsp;cTCrosstalk</a>&nbsp;-&nbsp;Prioritising targets at the crosstalk level from input SNPs</h3>		
+			<h3><a href="/PiER/cTCrosstalk"><i class="fa fa-gears fa-lg"></i>&nbsp;cTCrosstalk</a>&nbsp;-&nbsp;Prioritising targets at the crosstalk level from input SNPs</h3>		
 		</div>
 	</div>
 </div>

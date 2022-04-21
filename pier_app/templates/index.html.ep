@@ -62,7 +62,7 @@
     	<div class="col-md-4 img-portfolio text-center">
         	<div class="panel panel-default">
             	<div class="panel-heading">
-                	<h4><a href="/e/V2CG"><i class="fa fa-gear fa-lg"></i>&nbsp;eV2CG</a></h4>
+                	<h4><a href="/PiER/eV2CG"><i class="fa fa-gear fa-lg"></i>&nbsp;eV2CG</a></h4>
                 </div>
                 <div class="panel-body">
 					<p class="help-block" style="font-size:16px; margin:0;">Linking variants to core genes</p>
@@ -72,7 +72,7 @@
     	<div class="col-md-4 img-portfolio text-center">
         	<div class="panel panel-default">
             	<div class="panel-heading">
-                	<h4><a href="/e/CG2PG"><i class="fa fa-gear fa-lg"></i>&nbsp;eCG2PG</a></h4>
+                	<h4><a href="/PiER/eCG2PG"><i class="fa fa-gear fa-lg"></i>&nbsp;eCG2PG</a></h4>
                 </div>
                 <div class="panel-body">
                 	<!-- width=280 height=250 margin=10 -->
@@ -83,7 +83,7 @@
     	<div class="col-md-4 img-portfolio text-center">
         	<div class="panel panel-default">
             	<div class="panel-heading">
-                	<h4><a href="/e/Crosstalk"><i class="fa fa-gear fa-lg"></i>&nbsp;eCrosstalk </a></h4>
+                	<h4><a href="/PiER/eCrosstalk"><i class="fa fa-gear fa-lg"></i>&nbsp;eCrosstalk </a></h4>
                 </div>
                 <div class="panel-body">
                 	<p class="help-block" style="font-size:16px; margin:0;">Identifying pathway crosstalk</p>
@@ -97,7 +97,7 @@
     	<div class="col-md-4 img-portfolio text-center">
         	<div class="panel panel-default">
             	<div class="panel-heading">
-                	<h4><a href="/c/TGene"><i class="fa fa-gears fa-lg"></i>&nbsp;cTGene</a></h4>
+                	<h4><a href="/PiER/cTGene"><i class="fa fa-gears fa-lg"></i>&nbsp;cTGene</a></h4>
                 </div>
                 <div class="panel-body">
 					<p class="help-block" style="font-size:16px; margin:0;">Prioritising targets at the gene level&nbsp;</p>
@@ -107,7 +107,7 @@
     	<div class="col-md-4 img-portfolio text-center">
         	<div class="panel panel-default">
             	<div class="panel-heading">
-                	<h4><a href="/c/TCrosstalk"><i class="fa fa-gears fa-lg"></i>&nbsp;cTCrosstalk</a></h4>
+                	<h4><a href="/PiER/cTCrosstalk"><i class="fa fa-gears fa-lg"></i>&nbsp;cTCrosstalk</a></h4>
                 </div>
                 <div class="panel-body">
                 	<!-- width=280 height=250 margin=10 -->
@@ -118,7 +118,7 @@
     	<div class="col-md-4 img-portfolio text-center">
         	<div class="panel panel-default">
             	<div class="panel-heading">
-                	<h4><a href="javascript:newWin('/PiERbooklet/index.html', 'PiERbooklet', '909', '1169')"><i class="fa fa-book"></i>&nbsp;BOOKLET </a></h4>
+                	<h4><a href="javascript:newWin('/PiER/booklet', 'PiERbooklet', '909', '1169')"><i class="fa fa-book"></i>&nbsp;BOOKLET </a></h4>
                 </div>
                 <div class="panel-body">
                 	<p class="help-block" style="font-size:16px; margin:0;">Describing instructions on how to use</p>

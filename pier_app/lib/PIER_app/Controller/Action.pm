@@ -14,6 +14,16 @@ sub index {
   	$c->render();
 }
 
+sub booklet {
+  	my $c = shift;
+	$c->redirect_to("/PiERbooklet/index.html");
+}
+
+sub fdb {
+  	my $c = shift;
+	$c->redirect_to("/fdb/index.html");
+}
+
 # Render template "cTCrosstalk.html.ep"
 sub PiER_cTCrosstalk_default {
   	my $c = shift;

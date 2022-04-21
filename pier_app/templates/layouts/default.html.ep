@@ -61,10 +61,10 @@
 			  </button>
 			  
 			  % if(0){
-			  	<a class="navbar-brand" href="/">PIER</a>
+			  	<a class="navbar-brand" href="/PiER">PIER</a>
 			  
 			  %}else{
-				<a class="navbar-brand" class="btn btn-link btn-md active" role="button" href="/" title="Welcome to PIER"> <i class="fa fa-home fa-lg" aria-hidden="true"></i></a>
+				<a class="navbar-brand" class="btn btn-link btn-md active" role="button" href="/PiER" title="Welcome to PIER"> <i class="fa fa-home fa-lg" aria-hidden="true"></i></a>
 			  %}
 			  
 			</div>
@@ -78,29 +78,29 @@
 				</li>
 				-->
 				
-				<li class="dropdown<%== ($tab=~/PIER/i)? ' active':'' %>">
+				<li class="dropdown<%== ($tab=~/PiER/i)? ' active':'' %>">
 				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-server fa-lg"></span> PiER Facilities <b class="caret"></b></a>
 				  <ul class="dropdown-menu">
 				  	
 				  	<li class="dropdown-header"><h4 class="my-fontfamily">ELEMENTARY</h4></li>
-					<li <%== ($tab=~/e\/V2CG/i)? 'class="active"':'' %>>
-						<a href="/e/V2CG"><h4 class="my-fontfamily"><span class="fa fa-gear"></span>&nbsp;eV2CG</h4></a>
+					<li <%== ($tab=~/PiER\/eV2CG/i)? 'class="active"':'' %>>
+						<a href="/PiER/eV2CG"><h4 class="my-fontfamily"><span class="fa fa-gear"></span>&nbsp;eV2CG</h4></a>
 					</li>
-					<li <%== ($tab=~/e\/CG2PG/i)? 'class="active"':'' %>>
-						<a href="/e/CG2PG"><h4 class="my-fontfamily"><span class="fa fa-gear"></span>&nbsp;eCG2PG</h4></a>
+					<li <%== ($tab=~/PiER\/eCG2PG/i)? 'class="active"':'' %>>
+						<a href="/PiER/eCG2PG"><h4 class="my-fontfamily"><span class="fa fa-gear"></span>&nbsp;eCG2PG</h4></a>
 					</li>
-					<li <%== ($tab=~/e\/Crosstalk/i)? 'class="active"':'' %>>
-						<a href="/e/Crosstalk"><h4 class="my-fontfamily"><span class="fa fa-gear"></span>&nbsp;eCrosstalk</h4></a>
+					<li <%== ($tab=~/PiER\/eCrosstalk/i)? 'class="active"':'' %>>
+						<a href="/PiER/eCrosstalk"><h4 class="my-fontfamily"><span class="fa fa-gear"></span>&nbsp;eCrosstalk</h4></a>
 					</li>
 
 				  	<li role="separator" class="divider"></li>
 				  	
 					<li class="dropdown-header"><h4 class="my-fontfamily">COMBINATORY</h4></li>
-					<li <%== ($tab=~/c\/TGene/i)? 'class="active"':'' %>>
-						<a href="/c/TGene"><h4 class="my-fontfamily"><span class="fa fa-gears"></span>&nbsp;cTGene</h4></a>
+					<li <%== ($tab=~/PiER\/cTGene/i)? 'class="active"':'' %>>
+						<a href="/PiER/cTGene"><h4 class="my-fontfamily"><span class="fa fa-gears"></span>&nbsp;cTGene</h4></a>
 					</li>
-					<li <%== ($tab=~/c\/TCrosstalk/i)? 'class="active"':'' %>>
-						<a href="/c/TCrosstalk"><h4 class="my-fontfamily"><span class="fa fa-gears"></span>&nbsp;cTCrosstalk</h4></a>
+					<li <%== ($tab=~/PiER\/cTCrosstalk/i)? 'class="active"':'' %>>
+						<a href="/PiER/cTCrosstalk"><h4 class="my-fontfamily"><span class="fa fa-gears"></span>&nbsp;cTCrosstalk</h4></a>
 					</li>
 					
 				  </ul>
@@ -123,7 +123,7 @@
 		  	<hr>
 		  	
 		  	<footer class="text-left">
-				2022 &copy; <a href="/">PiER</a> | <strong>Web-based facilities</strong> for genetic target prioritisation harnessing human disease genetics, functional genomics and protein interactions | <strong>Source codes</strong> available at <a href="https://github.com/23verse/pier">GitHub</a> | <strong>Algorithm</strong> published in <a href="https://rdcu.be/bIfzE">Nature Genetics</a> with <a href="https://rdcu.be/bIfud" target="NV">News & Views</a> and <a href="https://www.nature.com/articles/s41588-019-0553-1" target="AYIG">A year in genetics</a> | University of Oxford (<a href="mailto:hfang@well.ox.ac.uk"><i class="fa fa-envelope-o"></i></a>) and Ruijin Hospital (<a href="mailto:fh12355@rjh.com.cn"><i class="fa fa-envelope-o"></i></a>)
+				2022 &copy; <a href="/PiER">PiER</a> | <strong>Web-based facilities</strong> for genetic target prioritisation harnessing human disease genetics, functional genomics and protein interactions | <strong>Source codes</strong> available at <a href="https://github.com/23verse/pier">GitHub</a> | <strong>Algorithm</strong> published in <a href="https://rdcu.be/bIfzE">Nature Genetics</a> with <a href="https://rdcu.be/bIfud" target="NV">News & Views</a> and <a href="https://www.nature.com/articles/s41588-019-0553-1" target="AYIG">A year in genetics</a> | University of Oxford (<a href="mailto:hfang@well.ox.ac.uk"><i class="fa fa-envelope-o"></i></a>) and Ruijin Hospital (<a href="mailto:fh12355@rjh.com.cn"><i class="fa fa-envelope-o"></i></a>)
 		  	</footer>
 		  	
 		<!-- end container theme-showcase -->

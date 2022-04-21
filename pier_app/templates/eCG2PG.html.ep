@@ -1,4 +1,4 @@
-% layout 'default', tab => '/e/CG2PG';
+% layout 'default', tab => '/PiER/eCG2PG';
 % title 'PiER - Networking core and peripheral genes';
 
 % content_for css => begin
@@ -513,7 +513,7 @@ SLC48A1	0.007338
 		</div>
 	
 		<div class="text-center">
-			<h3><a href="/e/CG2PG"><i class="fa fa-gear fa-lg"></i>&nbsp;eCG2PG</a>&nbsp;-&nbsp;Networking core and peripheral genes based on input core genes</h3>		
+			<h3><a href="/PiER/eCG2PG"><i class="fa fa-gear fa-lg"></i>&nbsp;eCG2PG</a>&nbsp;-&nbsp;Networking core and peripheral genes based on input core genes</h3>		
 		</div>
 	</div>
 </div>
